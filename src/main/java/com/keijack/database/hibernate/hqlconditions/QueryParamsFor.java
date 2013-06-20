@@ -14,6 +14,19 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface QueryParamsFor {
+
+    /**
+     * 要select的属性
+     * 
+     * @return
+     */
+    String[] fields() default {};
+
+    /**
+     * 是否对某些属性进行 distinct 查询
+     */
+    boolean distinct() default false;
+
     /**
      * 用来查询什么类
      * 

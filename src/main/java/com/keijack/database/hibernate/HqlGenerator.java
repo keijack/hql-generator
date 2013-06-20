@@ -287,7 +287,25 @@ public final class HqlGenerator {
 	QueryParamsFor listParamsAnno = getListParamsFor(listParamsObj);
 	String alias = listParamsAnno.alias();
 	Class<?> modelClass = listParamsAnno.value();
-	String from = "from " + modelClass.getName() + " " + alias;
+	StringBuilder selectString = new StringBuilder();
+	String[] selectFields = listParamsAnno.fields();
+	if (selectFields != null && selectFields.length > 0) {
+	    selectString.append("select ");
+	    if (listParamsAnno.distinct()) {
+		selectString.append("distinct ");
+	    }
+	    for (int i = 0; i < selectFields.length; i++) {
+
+		selectString.append(alias).append(".").append(selectFields[i]);
+		if (i != 1) {
+		    selectString.append(",");
+		}
+		selectString.append(" ");
+	    }
+
+	}
+	String from = selectString.toString() + "from " + modelClass.getName()
+		+ " " + alias;
 	hqlResult.setFrom(from);
     }
 

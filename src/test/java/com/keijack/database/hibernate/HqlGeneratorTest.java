@@ -7,8 +7,6 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.keijack.database.hibernate.HqlAndParams;
-import com.keijack.database.hibernate.HqlGenerator;
 import com.keijack.database.hibernate.hqlconditions.OrderByLevel;
 
 /**
@@ -192,5 +190,19 @@ public class HqlGeneratorTest {
 	    TestCase.fail();
 	}
 
+    }
+
+    @Test
+    public void testSelectField() {
+	ListIdFieldTestModelCall call = new ListIdFieldTestModelCall();
+	try {
+	    HqlAndParams hql = HqlGenerator.generateHql(call);
+	    TestCase.assertEquals(
+		    "select distinct t.id, t.parent from com.keijack.database.hibernate.TestModel t",
+		    hql.getFrom());
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    TestCase.fail();
+	}
     }
 }
