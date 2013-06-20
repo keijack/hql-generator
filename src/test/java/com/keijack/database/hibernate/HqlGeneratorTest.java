@@ -183,7 +183,7 @@ public class HqlGeneratorTest {
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(childCall);
 	    TestCase.assertEquals(
-		    "from com.keijack.database.TestModel testModel",
+		    "from com.keijack.database.hibernate.TestModel testModel",
 		    hql.getFrom());
 	} catch (Exception e) {
 	    e.printStackTrace();

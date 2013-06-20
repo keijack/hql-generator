@@ -14,9 +14,9 @@ public class QueryParamsValidator {
     public boolean validate(Class<?> queryParamsClass) {
 	try {
 	    checkClassAnno(queryParamsClass);
-	    Class<?> modelClass = queryParamsClass.getAnnotation(
-		    QueryParamsFor.class).value();
+	    Class<?> modelClass = getListParamsFor(queryParamsClass).value();
 	    Class<?> currentClass = queryParamsClass;
+	    checkSelectFieldExist(queryParamsClass);
 	    while (!currentClass.equals(Object.class)) {
 		checkFieldGetMethodExist(currentClass);
 		checkFieldTypeMatch(currentClass);
@@ -28,6 +28,20 @@ public class QueryParamsValidator {
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    return false;
+	}
+    }
+
+    private void checkSelectFieldExist(Class<?> queryParamsClass)
+	    throws Exception {
+	QueryParamsFor queryParamsForAnno = getListParamsFor(queryParamsClass);
+	String[] selectedFields = queryParamsForAnno.fields();
+	StringBuilder selectFieldError = new StringBuilder();
+	for (String field : selectedFields) {
+	    selectFieldError.append(this.checkFieldExist(field,
+		    queryParamsForAnno.value()));
+	}
+	if (!selectFieldError.toString().isEmpty()) {
+	    throw new Exception(selectFieldError.toString());
 	}
     }
 
@@ -103,8 +117,7 @@ public class QueryParamsValidator {
 	}
     }
 
-    private StringBuilder checkFieldExist(String fieldName, Class<?> modelClass)
-	    throws Exception {
+    private StringBuilder checkFieldExist(String fieldName, Class<?> modelClass) {
 	String[] fieldArray = fieldName.split("\\.");
 	String realField = fieldArray[0];
 
@@ -164,9 +177,21 @@ public class QueryParamsValidator {
 	}
     }
 
+    private QueryParamsFor getListParamsFor(Class<?> queryParamsClass) {
+	Class<?> currentClass = queryParamsClass;
+	while (!currentClass.equals(Object.class)) {
+	    QueryParamsFor anno = currentClass
+		    .getAnnotation(QueryParamsFor.class);
+	    if (anno != null) {
+		return anno;
+	    }
+	    currentClass = currentClass.getSuperclass();
+	}
+	return null;
+    }
+
     private void checkClassAnno(Class<?> queryParamsClass) throws Exception {
-	QueryParamsFor classAnno = queryParamsClass
-		.getAnnotation(QueryParamsFor.class);
+	QueryParamsFor classAnno = getListParamsFor(queryParamsClass);
 	if (classAnno == null) {
 	    throw new Exception(
 		    "Can not find Annotation QueryParamsFor in this Class ");
