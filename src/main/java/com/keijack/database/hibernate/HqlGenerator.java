@@ -3,8 +3,8 @@ package com.keijack.database.hibernate;
 import com.keijack.database.hibernate.internal.HqlFromGenerator;
 import com.keijack.database.hibernate.internal.HqlOrderByGenerator;
 import com.keijack.database.hibernate.internal.HqlWhereGenerator;
+import com.keijack.database.hibernate.internal.util.ReflectionUtil;
 import com.keijack.database.hibernate.stereotype.QueryParamsFor;
-import com.keijack.database.hibernate.util.ReflectionUtil;
 
 /**
  * 

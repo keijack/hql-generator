@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.keijack.database.hibernate.HqlGeneratException;
+import com.keijack.database.hibernate.internal.util.ReflectionUtil;
 import com.keijack.database.hibernate.stereotype.OrderBy;
 import com.keijack.database.hibernate.stereotype.OrderByLevel;
 import com.keijack.database.hibernate.stereotype.QueryParamsFor;
-import com.keijack.database.hibernate.util.ReflectionUtil;
 
 public class HqlOrderByGenerator {
 

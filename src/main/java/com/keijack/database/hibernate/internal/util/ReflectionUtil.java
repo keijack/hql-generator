@@ -1,4 +1,4 @@
-package com.keijack.database.hibernate.util;
+package com.keijack.database.hibernate.internal.util;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

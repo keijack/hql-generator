@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.keijack.database.hibernate.HqlGeneratException;
+import com.keijack.database.hibernate.internal.util.ReflectionUtil;
 import com.keijack.database.hibernate.stereotype.ConditionLogicType;
 import com.keijack.database.hibernate.stereotype.QueryCondition;
 import com.keijack.database.hibernate.stereotype.QueryParamsFor;
-import com.keijack.database.hibernate.util.ReflectionUtil;
 
 /**
  * 生成Where语句的类
