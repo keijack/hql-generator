@@ -1,4 +1,4 @@
-package com.keijack.database.hibernate.hqlconditions;
+package com.keijack.database.hibernate.stereotype;
 
 public enum OrderByLevel {
     /**

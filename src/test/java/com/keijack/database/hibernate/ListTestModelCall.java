@@ -2,12 +2,12 @@ package com.keijack.database.hibernate;
 
 import java.util.List;
 
-import com.keijack.database.hibernate.hqlconditions.ConditionLogicType;
-import com.keijack.database.hibernate.hqlconditions.OrderBy;
-import com.keijack.database.hibernate.hqlconditions.OrderByLevel;
-import com.keijack.database.hibernate.hqlconditions.OrderByType;
-import com.keijack.database.hibernate.hqlconditions.QueryCondition;
-import com.keijack.database.hibernate.hqlconditions.QueryParamsFor;
+import com.keijack.database.hibernate.stereotype.ConditionLogicType;
+import com.keijack.database.hibernate.stereotype.OrderBy;
+import com.keijack.database.hibernate.stereotype.OrderByLevel;
+import com.keijack.database.hibernate.stereotype.OrderByType;
+import com.keijack.database.hibernate.stereotype.QueryCondition;
+import com.keijack.database.hibernate.stereotype.QueryParamsFor;
 
 @QueryParamsFor(value = TestModel.class, alias = "testModel")
 public class ListTestModelCall extends ListTestModelCallParent {

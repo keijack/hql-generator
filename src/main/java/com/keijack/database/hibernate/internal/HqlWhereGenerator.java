@@ -1,4 +1,4 @@
-package com.keijack.database.hibernate.impl;
+package com.keijack.database.hibernate.internal;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.keijack.database.hibernate.HqlGeneratException;
-import com.keijack.database.hibernate.hqlconditions.ConditionLogicType;
-import com.keijack.database.hibernate.hqlconditions.QueryCondition;
-import com.keijack.database.hibernate.hqlconditions.QueryParamsFor;
+import com.keijack.database.hibernate.stereotype.ConditionLogicType;
+import com.keijack.database.hibernate.stereotype.QueryCondition;
+import com.keijack.database.hibernate.stereotype.QueryParamsFor;
 import com.keijack.database.hibernate.util.ReflectionUtil;
 
 /**

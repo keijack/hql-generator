@@ -1,6 +1,6 @@
-package com.keijack.database.hibernate.impl;
+package com.keijack.database.hibernate.internal;
 
-import com.keijack.database.hibernate.hqlconditions.QueryParamsFor;
+import com.keijack.database.hibernate.stereotype.QueryParamsFor;
 
 /**
  * Generate hql's from part.

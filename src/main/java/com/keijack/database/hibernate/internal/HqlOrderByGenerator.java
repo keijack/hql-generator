@@ -1,4 +1,4 @@
-package com.keijack.database.hibernate.impl;
+package com.keijack.database.hibernate.internal;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.keijack.database.hibernate.HqlGeneratException;
-import com.keijack.database.hibernate.hqlconditions.OrderBy;
-import com.keijack.database.hibernate.hqlconditions.OrderByLevel;
-import com.keijack.database.hibernate.hqlconditions.QueryParamsFor;
+import com.keijack.database.hibernate.stereotype.OrderBy;
+import com.keijack.database.hibernate.stereotype.OrderByLevel;
+import com.keijack.database.hibernate.stereotype.QueryParamsFor;
 import com.keijack.database.hibernate.util.ReflectionUtil;
 
 public class HqlOrderByGenerator {

@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.keijack.database.hibernate.hqlconditions.OrderByLevel;
+import com.keijack.database.hibernate.stereotype.OrderByLevel;
 
 /**
  * 测试

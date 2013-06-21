@@ -1,9 +1,9 @@
 package com.keijack.database.hibernate;
 
-import com.keijack.database.hibernate.hqlconditions.QueryParamsFor;
-import com.keijack.database.hibernate.impl.HqlFromGenerator;
-import com.keijack.database.hibernate.impl.HqlOrderByGenerator;
-import com.keijack.database.hibernate.impl.HqlWhereGenerator;
+import com.keijack.database.hibernate.internal.HqlFromGenerator;
+import com.keijack.database.hibernate.internal.HqlOrderByGenerator;
+import com.keijack.database.hibernate.internal.HqlWhereGenerator;
+import com.keijack.database.hibernate.stereotype.QueryParamsFor;
 import com.keijack.database.hibernate.util.ReflectionUtil;
 
 /**
@@ -23,7 +23,7 @@ public final class HqlGenerator {
     /**
      * 
      * @param queryParamsObj
-     *            获得一个Hql, 这个类必须被标注为 ListParams
+     *            获得一个Hql, 这个类必须被标注为 QueryParamsFor
      * @return
      * @throws HqlGeneratException
      */

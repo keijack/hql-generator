@@ -1,23 +1,32 @@
-package com.keijack.database.hibernate.impl;
+package com.keijack.database.hibernate.internal;
 
 import java.util.Collection;
 import java.util.List;
 
-import com.keijack.database.hibernate.hqlconditions.QueryCondition;
+import com.keijack.database.hibernate.stereotype.QueryCondition;
 
-public class NotInQueryConditionAnnoHqlBuilder extends
+/**
+ * 
+ * @author Keijack
+ * 
+ */
+public class InQueryConditionAnnoHqlBuilder extends
 	QueryConditionAnnoHqlBuilder {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void generateHql(QueryCondition conditionAnno, Object param,
 	    StringBuilder where, List<Object> params) {
-	where.append(" and (1 = 1");
+	where.append(" and (1 = 0");
 	for (Object obj : (Collection<?>) param) {
 	    StringBuilder filedWithSqlFunction = getHqlFieldWithSqlFunction(conditionAnno);
-	    where.append(" and ").append(filedWithSqlFunction).append(" != ?");
+	    where.append(" or ").append(filedWithSqlFunction).append(" = ?");
 	    params.add(obj);
 	}
 	where.append(")");
+
     }
 
 }

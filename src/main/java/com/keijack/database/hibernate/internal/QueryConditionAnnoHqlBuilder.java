@@ -1,11 +1,11 @@
-package com.keijack.database.hibernate.impl;
+package com.keijack.database.hibernate.internal;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.keijack.database.hibernate.hqlconditions.QueryCondition;
-import com.keijack.database.hibernate.hqlconditions.SqlFunctions;
+import com.keijack.database.hibernate.stereotype.QueryCondition;
+import com.keijack.database.hibernate.stereotype.SqlFunctions;
 
 /**
  * 

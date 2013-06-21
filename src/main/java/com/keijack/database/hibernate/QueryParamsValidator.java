@@ -3,11 +3,11 @@ package com.keijack.database.hibernate;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import com.keijack.database.hibernate.hqlconditions.ConditionLogicType;
-import com.keijack.database.hibernate.hqlconditions.OrderBy;
-import com.keijack.database.hibernate.hqlconditions.OrderByLevel;
-import com.keijack.database.hibernate.hqlconditions.QueryCondition;
-import com.keijack.database.hibernate.hqlconditions.QueryParamsFor;
+import com.keijack.database.hibernate.stereotype.ConditionLogicType;
+import com.keijack.database.hibernate.stereotype.OrderBy;
+import com.keijack.database.hibernate.stereotype.OrderByLevel;
+import com.keijack.database.hibernate.stereotype.QueryCondition;
+import com.keijack.database.hibernate.stereotype.QueryParamsFor;
 
 public class QueryParamsValidator {
 
