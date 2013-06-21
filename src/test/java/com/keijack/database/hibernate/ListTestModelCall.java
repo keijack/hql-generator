@@ -28,7 +28,7 @@ public class ListTestModelCall extends ListTestModelCallParent {
     @QueryCondition(field = "strValue", logicType = ConditionLogicType.in, emptyAsNull = true)
     private List<String> starValuesIn;
 
-    @QueryCondition(field = "modelItems", logicType = ConditionLogicType.contains)
+    @QueryCondition(field = "modelItems", logicType = ConditionLogicType.notContains)
     private TestModelItem item;
 
     @OrderBy(field = "id", orderBy = OrderByType.desc)

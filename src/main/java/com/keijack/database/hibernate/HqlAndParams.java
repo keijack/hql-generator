@@ -1,9 +1,5 @@
 package com.keijack.database.hibernate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * 拼成一个所必须有的参数
  * 
@@ -61,15 +57,6 @@ public class HqlAndParams {
 
     public void setParams(Object[] params) {
 	this.params = params;
-    }
-
-    /**
-     * @return 参数列表
-     */
-    public List<Object> getParamList() {
-	List<Object> paramList = new ArrayList<Object>();
-	paramList.addAll(Arrays.asList(this.params));
-	return paramList;
     }
 
     /**

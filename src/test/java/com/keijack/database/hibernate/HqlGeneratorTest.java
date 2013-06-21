@@ -28,7 +28,7 @@ public class HqlGeneratorTest {
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(listCall);
 	    TestCase.assertEquals(
-		    "from com.keijack.database.TestModel testModel",
+		    "from com.keijack.database.hibernate.TestModel testModel",
 		    hql.getFrom());
 	    TestCase.assertEquals(
 		    "where 1 = 1 and (testModel.id) = ? and (testModel.strValue) like ?",
@@ -54,7 +54,7 @@ public class HqlGeneratorTest {
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(listCall);
 	    TestCase.assertEquals(
-		    "where 1 = 1 and (testModel.id) = ? and ? in elements (testModel.modelItems)",
+		    "where 1 = 1 and (testModel.id) = ? and ? not in elements (testModel.modelItems)",
 		    hql.getWhere());
 	    TestCase.assertEquals(Integer.valueOf(2), hql.getParams()[0]);
 	    TestCase.assertEquals(testItem, hql.getParams()[1]);
@@ -83,7 +83,8 @@ public class HqlGeneratorTest {
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(listCall);
 	    TestCase.assertEquals(
-		    "where 1 = 1 and (testModel.id) = ? and (1 = 0 or testModel.strValue = ? or testModel.strValue = ?) and (1 = 1 and testModel.parent.parentStrValue != ? and testModel.parent.parentStrValue != ?)",
+		    "where 1 = 1 and (testModel.id) = ? and (1 = 0 or (testModel.strValue) = ? or (testModel.strValue) = ?) "
+			    + "and (1 = 1 and (testModel.parent.parentStrValue) != ? and (testModel.parent.parentStrValue) != ?)",
 		    hql.getWhere());
 	    TestCase.assertEquals(Integer.valueOf(1), hql.getParams()[0]);
 	    TestCase.assertEquals("abcde", hql.getParams()[1]);
