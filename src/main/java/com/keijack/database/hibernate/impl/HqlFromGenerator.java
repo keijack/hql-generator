@@ -15,9 +15,21 @@ public class HqlFromGenerator {
      */
     private final QueryParamsFor queryParamsForAnno;
 
+    /**
+     * from
+     */
+    private String from;
+
     public HqlFromGenerator(QueryParamsFor queryParamsForAnno) {
 	super();
 	this.queryParamsForAnno = queryParamsForAnno;
+    }
+
+    public String getFrom() {
+	if (from == null) {
+	    generate();
+	}
+	return from;
     }
 
     /**
@@ -26,7 +38,7 @@ public class HqlFromGenerator {
      * @param hqlResult
      *            收集参数
      */
-    public String getFrom() {
+    public void generate() {
 	String alias = queryParamsForAnno.alias();
 	Class<?> modelClass = queryParamsForAnno.value();
 	StringBuilder selectString = new StringBuilder();
@@ -46,7 +58,7 @@ public class HqlFromGenerator {
 	    }
 
 	}
-	return selectString.toString() + "from " + modelClass.getName() + " "
-		+ alias;
+	this.from = selectString.toString() + "from " + modelClass.getName()
+		+ " " + alias;
     }
 }

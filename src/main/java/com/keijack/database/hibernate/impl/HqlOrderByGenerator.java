@@ -22,11 +22,20 @@ public class HqlOrderByGenerator {
      */
     private final Object queryParamsObj;
 
+    private String orderBy;
+
     public HqlOrderByGenerator(QueryParamsFor queryParamsForAnno,
 	    Object queryParamsObj) {
 	super();
 	this.queryParamsForAnno = queryParamsForAnno;
 	this.queryParamsObj = queryParamsObj;
+    }
+
+    public String getOrderBy() throws HqlGeneratException {
+	if (orderBy == null) {
+	    generate();
+	}
+	return orderBy;
     }
 
     /**
@@ -39,13 +48,14 @@ public class HqlOrderByGenerator {
      *            所有定义的 field
      * @throws HqlGeneratException
      */
-    public String getOrderBy() throws HqlGeneratException {
+    private void generate() throws HqlGeneratException {
 	Map<OrderByLevel, StringBuilder> orderBySubStrs = getOrderBySubStringMap();
 
 	if (orderBySubStrs.isEmpty()) {
-	    return "";
+	    this.orderBy = "";
+	    return;
 	}
-	return getOrderByStringWithSortLevel(orderBySubStrs);
+	this.orderBy = getOrderByStringWithSortLevel(orderBySubStrs);
     }
 
     /**
