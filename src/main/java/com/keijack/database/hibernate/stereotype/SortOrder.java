@@ -5,13 +5,19 @@ package com.keijack.database.hibernate.stereotype;
  * @author Keijack
  * 
  */
-public enum OrderByType {
+public enum SortOrder {
     /**
      * 升序排列
      */
-    asc,
+    ASC,
     /**
      * 降序排列
      */
-    desc
+    DESC;
+
+    @Override
+    public String toString() {
+	return super.toString().toLowerCase();
+    }
+
 }

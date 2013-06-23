@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.keijack.database.hibernate.stereotype.ConditionLogicType;
+import com.keijack.database.hibernate.stereotype.ComparisonType;
 import com.keijack.database.hibernate.stereotype.QueryCondition;
 
 /**
@@ -18,17 +18,17 @@ public class DefaultQueryConditionAnnoHqlBuilder extends
     /**
      * 配置各个逻辑的符号
      */
-    private static final Map<ConditionLogicType, String> LOGICMAP = new HashMap<ConditionLogicType, String>();
+    private static final Map<ComparisonType, String> LOGICMAP = new HashMap<ComparisonType, String>();
 
     static {
-	LOGICMAP.put(ConditionLogicType.equal, "=");
-	LOGICMAP.put(ConditionLogicType.notEqual, "!=");
-	LOGICMAP.put(ConditionLogicType.more, ">");
-	LOGICMAP.put(ConditionLogicType.moreEqual, ">=");
-	LOGICMAP.put(ConditionLogicType.less, "<");
-	LOGICMAP.put(ConditionLogicType.lessEqual, "<=");
-	LOGICMAP.put(ConditionLogicType.like, "like");
-	LOGICMAP.put(ConditionLogicType.notLike, "not like");
+	LOGICMAP.put(ComparisonType.EQUAL, "=");
+	LOGICMAP.put(ComparisonType.NOTEQUAL, "!=");
+	LOGICMAP.put(ComparisonType.MORE, ">");
+	LOGICMAP.put(ComparisonType.MOREEQUAL, ">=");
+	LOGICMAP.put(ComparisonType.LESS, "<");
+	LOGICMAP.put(ComparisonType.LESSEQUAL, "<=");
+	LOGICMAP.put(ComparisonType.LIKE, "like");
+	LOGICMAP.put(ComparisonType.NOTLIKE, "not like");
     }
 
     /**
@@ -38,10 +38,10 @@ public class DefaultQueryConditionAnnoHqlBuilder extends
 	    StringBuilder where, List<Object> params) {
 	StringBuilder filedWithSqlFunction = getHqlFieldWithSqlFunction(conditionAnno);
 	where.append(" and ").append(filedWithSqlFunction).append(" ")
-		.append(LOGICMAP.get(conditionAnno.logicType())).append(" ?");
+		.append(LOGICMAP.get(conditionAnno.comparison())).append(" ?");
 
 	if (param instanceof String) {
-	    params.add(conditionAnno.prefix() + param + conditionAnno.suffix());
+	    params.add(conditionAnno.preString() + param + conditionAnno.postString());
 	} else {
 	    params.add(param);
 	}

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.keijack.database.hibernate.stereotype.QueryCondition;
-import com.keijack.database.hibernate.stereotype.SqlFunctions;
+import com.keijack.database.hibernate.stereotype.HqlFunctions;
 
 /**
  * 
@@ -30,14 +30,14 @@ public abstract class QueryConditionAnnoHqlBuilder {
     /**
      * 配置各个函数的方法
      */
-    protected static final Map<SqlFunctions, String> SQLFUNCTIONMAP = new HashMap<SqlFunctions, String>();
+    protected static final Map<HqlFunctions, String> SQLFUNCTIONMAP = new HashMap<HqlFunctions, String>();
 
     static {
 
-	SQLFUNCTIONMAP.put(SqlFunctions.year, "year");
-	SQLFUNCTIONMAP.put(SqlFunctions.month, "month");
-	SQLFUNCTIONMAP.put(SqlFunctions.day, "day");
-	SQLFUNCTIONMAP.put(SqlFunctions.originalValue, "");
+	SQLFUNCTIONMAP.put(HqlFunctions.YEAR, "year");
+	SQLFUNCTIONMAP.put(HqlFunctions.MONTH, "month");
+	SQLFUNCTIONMAP.put(HqlFunctions.DAY, "day");
+	SQLFUNCTIONMAP.put(HqlFunctions.DEFAULT, "");
     }
 
     /**
@@ -50,7 +50,7 @@ public abstract class QueryConditionAnnoHqlBuilder {
 	    QueryCondition conditionAnno) {
 	StringBuilder filedWithSqlFunction = new StringBuilder();
 	filedWithSqlFunction
-		.append(SQLFUNCTIONMAP.get(conditionAnno.sqlFunction()))
+		.append(SQLFUNCTIONMAP.get(conditionAnno.hqlFunction()))
 		.append("(").append(this.getAlias()).append(".")
 		.append(conditionAnno.field()).append(")");
 	return filedWithSqlFunction;

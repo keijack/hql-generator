@@ -2,7 +2,7 @@ package com.keijack.database.hibernate.internal;
 
 import java.util.List;
 
-import com.keijack.database.hibernate.stereotype.ConditionLogicType;
+import com.keijack.database.hibernate.stereotype.ComparisonType;
 import com.keijack.database.hibernate.stereotype.QueryCondition;
 
 /**
@@ -20,7 +20,7 @@ public class ExistQueryConditionAnnoHqlBuilder extends
     public void generateHql(QueryCondition conditionAnno, Object param,
 	    StringBuilder where, List<Object> params) {
 	String notString = "";
-	if (conditionAnno.logicType().equals(ConditionLogicType.notContains)) {
+	if (conditionAnno.comparison().equals(ComparisonType.NOTCONTAINS)) {
 	    notString = "not ";
 	}
 	where.append(" and ? ").append(notString).append("in elements (")

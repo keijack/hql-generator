@@ -7,58 +7,58 @@ package com.keijack.database.hibernate.stereotype;
  * @author Keijack
  * 
  */
-public enum ConditionLogicType {
+public enum ComparisonType {
     /**
      * =
      */
-    equal,
+    EQUAL,
     /**
      * !=
      */
-    notEqual,
+    NOTEQUAL,
     /**
      * >
      */
-    more,
+    MORE,
     /**
      * >=
      */
-    moreEqual,
+    MOREEQUAL,
     /**
      * <
      */
-    less,
+    LESS,
     /**
      * <=
      */
-    lessEqual,
+    LESSEQUAL,
     /**
      * in
      */
-    in,
+    IN,
     /**
      * not in
      */
-    notIn,
+    NOTIN,
     /**
      * like
      */
-    like,
+    LIKE,
     /**
      * not like
      */
-    notLike,
+    NOTLIKE,
     /**
      * in elements
      */
-    contains,
+    CONTAINS,
     /**
      * not in elements
      */
-    notContains,
+    NOTCONTAINS,
     /**
-     * 空
+     * null
      */
-    isNull
+    ISNULL
 
 }

@@ -2,12 +2,12 @@ package com.keijack.database.hibernate;
 
 import java.util.List;
 
-import com.keijack.database.hibernate.stereotype.ConditionLogicType;
+import com.keijack.database.hibernate.stereotype.ComparisonType;
 import com.keijack.database.hibernate.stereotype.OrderBy;
 import com.keijack.database.hibernate.stereotype.OrderByLevel;
-import com.keijack.database.hibernate.stereotype.OrderByType;
+import com.keijack.database.hibernate.stereotype.SortOrder;
 import com.keijack.database.hibernate.stereotype.QueryCondition;
-import com.keijack.database.hibernate.stereotype.SqlFunctions;
+import com.keijack.database.hibernate.stereotype.HqlFunctions;
 
 /**
  * 支持父类继承
@@ -19,31 +19,31 @@ public class ListTestModelCallParent {
     /**
      * order by parentStrValue
      */
-    @QueryCondition(field = "parent.parentStrValue", logicType = ConditionLogicType.notIn)
+    @QueryCondition(field = "parent.parentStrValue", comparison = ComparisonType.NOTIN)
     private List<String> notInParentStrValue;
 
     /**
      * strValues是否为空
      */
-    @QueryCondition(field = "strValue", logicType = ConditionLogicType.isNull)
+    @QueryCondition(field = "strValue", comparison = ComparisonType.ISNULL)
     private Boolean strValueIsNull;
 
     /**
      * ParentId 是否为空
      */
-    @QueryCondition(field = "parent.parentId", logicType = ConditionLogicType.isNull)
+    @QueryCondition(field = "parent.parentId", comparison = ComparisonType.ISNULL)
     private Boolean parentIdIsNull;
 
     /**
      * 获得日期
      */
-    @QueryCondition(field = "date", logicType = ConditionLogicType.equal, sqlFunction = SqlFunctions.month)
+    @QueryCondition(field = "date", comparison = ComparisonType.EQUAL, hqlFunction = HqlFunctions.MONTH)
     private Integer monthOfDate;
 
     /**
      * order by parentId
      */
-    @OrderBy(field = "parent.parentId", orderBy = OrderByType.asc)
+    @OrderBy(field = "parent.parentId", orderBy = SortOrder.ASC)
     private OrderByLevel orderByParentId;
 
     public List<String> getNotInParentStrValue() {

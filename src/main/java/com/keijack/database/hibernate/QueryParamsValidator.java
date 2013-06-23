@@ -3,7 +3,7 @@ package com.keijack.database.hibernate;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import com.keijack.database.hibernate.stereotype.ConditionLogicType;
+import com.keijack.database.hibernate.stereotype.ComparisonType;
 import com.keijack.database.hibernate.stereotype.OrderBy;
 import com.keijack.database.hibernate.stereotype.OrderByLevel;
 import com.keijack.database.hibernate.stereotype.QueryCondition;
@@ -58,7 +58,7 @@ public class QueryParamsValidator {
 		conditionTypeError.append("QueryCondition field error: "
 			+ callField.getName() + " is primitive.\r\n");
 	    }
-	    if (ConditionLogicType.isNull.equals(conditionAnno.logicType())
+	    if (ComparisonType.ISNULL.equals(conditionAnno.comparison())
 		    && !Boolean.class.equals(callField.getType())) {
 		conditionTypeError.append("QueryCondition field error: "
 			+ callField.getName()

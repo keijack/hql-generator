@@ -18,7 +18,7 @@ public @interface QueryCondition {
      * 
      * @return
      */
-    ConditionLogicType logicType();
+    ComparisonType comparison();
 
     /**
      * 用于哪个Filed
@@ -32,21 +32,21 @@ public @interface QueryCondition {
      * 
      * @return
      */
-    String prefix() default "";
+    String preString() default "";
 
     /**
      * 额外增加的后缀
      * 
      * @return
      */
-    String suffix() default "";
+    String postString() default "";
 
     /**
      * 需要使用的SQL函数
      * 
      * @return
      */
-    SqlFunctions sqlFunction() default SqlFunctions.originalValue;
+    HqlFunctions hqlFunction() default HqlFunctions.DEFAULT;
 
     /**
      * 是否过滤空，如果过滤空，则 "" 等同于NULL，空列表等同于 NULL

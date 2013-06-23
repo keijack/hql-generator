@@ -27,5 +27,5 @@ public @interface OrderBy {
      * 
      * @return
      */
-    OrderByType orderBy() default OrderByType.asc;
+    SortOrder orderBy() default SortOrder.ASC;
 }

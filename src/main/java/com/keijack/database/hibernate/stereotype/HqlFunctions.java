@@ -6,21 +6,21 @@ package com.keijack.database.hibernate.stereotype;
  * @author Keijack
  * @version 0.1 只支持 month, day, year 三个函数
  */
-public enum SqlFunctions {
+public enum HqlFunctions {
     /**
      * SQL函数, 获得一个日期的年份
      */
-    year,
+    YEAR,
     /**
      * SQL函数, 获得一个日期的月份
      */
-    month,
+    MONTH,
     /**
      * SQL函数, 获得一个日期
      */
-    day,
+    DAY,
     /**
      * 原值
      */
-    originalValue
+    DEFAULT
 }
