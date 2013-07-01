@@ -11,7 +11,9 @@ import com.keijack.database.hibernate.HqlGeneratException;
 import com.keijack.database.hibernate.internal.util.ReflectionUtil;
 import com.keijack.database.hibernate.stereotype.ComparisonType;
 import com.keijack.database.hibernate.stereotype.QueryCondition;
+import com.keijack.database.hibernate.stereotype.QueryFormula;
 import com.keijack.database.hibernate.stereotype.QueryParamsFor;
+import com.sun.istack.internal.logging.Logger;
 
 /**
  * 生成Where语句的类
@@ -59,6 +61,8 @@ public class HqlWhereGenerator {
 
     private final Object queryParamsObj;
 
+    private final Logger logger = Logger.getLogger(HqlWhereGenerator.class);
+
     private String where;
 
     private Object[] params;
@@ -97,16 +101,89 @@ public class HqlWhereGenerator {
 	StringBuilder where = new StringBuilder("where 1 = 1");
 	List<Object> params = new ArrayList<Object>();
 
+	generateWhereFormQueryCondition(where, params);
+
+	generateWhereFormQueryFormula(where, params);
+
+	this.where = where.toString();
+	this.params = params.toArray();
+    }
+
+    private void generateWhereFormQueryFormula(StringBuilder where,
+	    List<Object> params) throws HqlGeneratException {
+	List<Field> queryConditionFields = ReflectionUtil
+		.getFieldsWithGivenAnnotationRecursively(
+			queryParamsObj.getClass(), QueryFormula.class);
+
+	for (Field field : queryConditionFields) {
+	    generateQueryFormulaFieldHql(field, where, params);
+	}
+    }
+
+    private void generateQueryFormulaFieldHql(Field field, StringBuilder where,
+	    List<Object> params) throws HqlGeneratException {
+	QueryFormula formula = field.getAnnotation(QueryFormula.class);
+	Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj,
+		field);
+	if (param == null) {
+	    return;
+	}
+	String formulaValue = formula.value();
+	where.append(" and (").append(formulaValue).append(")");
+	if (!formula.appendValue()) {
+	    return;
+	}
+	int requiredParamCount = getParamsCount(formulaValue);
+	if (param.getClass().equals(Collection.class)) {
+	    Collection<?> paramValues = (Collection<?>) param;
+	    int paramValuesSize = paramValues.size();
+	    if (paramValuesSize < requiredParamCount) {
+		throw new HqlGeneratException(
+			"Not enough parameters in Query parameter bean's field ["
+				+ field.getName() + "].");
+	    } else {
+		if (paramValuesSize > requiredParamCount) {
+		    logger.warning("Query parameter bean's field ["
+			    + field.getName()
+			    + "] paremeters is more than required.Need: ["
+			    + requiredParamCount + "] but [" + paramValuesSize
+			    + "].");
+		}
+		int i = 0;
+		for (Object paramItem : paramValues) {
+		    params.add(paramItem);
+		    i++;
+		    if (i == requiredParamCount) {
+			break;
+		    }
+		}
+	    }
+	} else {
+	    for (int i = 0; i < requiredParamCount; i++) {
+		params.add(param);
+	    }
+	}
+    }
+
+    private int getParamsCount(String formulaValue) {
+	int count = 0;
+	for (char c : formulaValue.toCharArray()) {
+	    if (c == '?') {
+		count++;
+	    }
+	}
+	return count;
+    }
+
+    private void generateWhereFormQueryCondition(StringBuilder where,
+	    List<Object> params) throws HqlGeneratException {
 	List<Field> queryConditionFields = ReflectionUtil
 		.getFieldsWithGivenAnnotationRecursively(
 			queryParamsObj.getClass(), QueryCondition.class);
 
 	for (Field field : queryConditionFields) {
-	    generateWhereFieldHql(field, where, params);
+	    generateQueryConditionFieldHql(field, where, params);
 	}
-
-	this.where = where.toString();
-	this.params = params.toArray();
     }
 
     /**
@@ -121,8 +198,9 @@ public class HqlWhereGenerator {
      * @return
      * @throws HqlGeneratException
      */
-    private void generateWhereFieldHql(Field field, StringBuilder where,
-	    List<Object> params) throws HqlGeneratException {
+    private void generateQueryConditionFieldHql(Field field,
+	    StringBuilder where, List<Object> params)
+	    throws HqlGeneratException {
 	QueryCondition conditionAnno = field
 		.getAnnotation(QueryCondition.class);
 	Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj,
