@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import com.keijack.database.hibernate.HqlGeneratException;
 import com.keijack.database.hibernate.internal.util.ReflectionUtil;
@@ -13,7 +14,6 @@ import com.keijack.database.hibernate.stereotype.ComparisonType;
 import com.keijack.database.hibernate.stereotype.QueryCondition;
 import com.keijack.database.hibernate.stereotype.QueryFormula;
 import com.keijack.database.hibernate.stereotype.QueryParamsFor;
-import com.sun.istack.internal.logging.Logger;
 
 /**
  * 生成Where语句的类
@@ -61,7 +61,7 @@ public class HqlWhereGenerator {
 
     private final Object queryParamsObj;
 
-    private final Logger logger = Logger.getLogger(HqlWhereGenerator.class);
+    private final Logger logger = Logger.getLogger(getClass().getName());
 
     private String where;
 
@@ -134,7 +134,7 @@ public class HqlWhereGenerator {
 	    return;
 	}
 	int requiredParamCount = getParamsCount(formulaValue);
-	if (param.getClass().equals(Collection.class)) {
+	if (Collection.class.isInstance(param)) {
 	    Collection<?> paramValues = (Collection<?>) param;
 	    int paramValuesSize = paramValues.size();
 	    if (paramValuesSize < requiredParamCount) {
@@ -209,11 +209,11 @@ public class HqlWhereGenerator {
 	    return;
 	}
 	if (conditionAnno.emptyAsNull()) {
-	    if (param instanceof String && "".equals(param)) {
+	    if (String.class.isInstance(param) && "".equals(param)) {
 		return;
 	    }
-	    if (param instanceof Collection<?>
-		    && ((Collection<?>) param).isEmpty()) {
+	    if (Collection.class.isInstance(param)
+		    && Collection.class.cast(param).isEmpty()) {
 		return;
 	    }
 	}

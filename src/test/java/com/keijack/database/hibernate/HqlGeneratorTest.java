@@ -206,4 +206,71 @@ public class HqlGeneratorTest {
 	    TestCase.fail();
 	}
     }
+
+    @Test
+    public void testQueryFormulaField() {
+	ListTestModelUsingQueryFormulaCall call = new ListTestModelUsingQueryFormulaCall();
+	call.setNotAppendValue(true);
+	call.setAppendValue(1);
+	List<Integer> ids = new ArrayList<Integer>();
+	ids.add(1);
+	ids.add(2);
+	ids.add(3);
+	call.setAppendValueList(ids);
+	try {
+	    HqlAndParams hql = HqlGenerator.generateHql(call);
+	    TestCase.assertEquals(
+		    "where 1 = 1 and (m.parent is not null) and (m.parent.id = ?) and (m.parent.id = ? or m.parent.id = ? or m.parent.id = ?)",
+		    hql.getWhere());
+	    TestCase.assertEquals(4, hql.getParams().length);
+	    TestCase.assertEquals(1, hql.getParams()[0]);
+	    TestCase.assertEquals(1, hql.getParams()[1]);
+	    TestCase.assertEquals(2, hql.getParams()[2]);
+	    TestCase.assertEquals(3, hql.getParams()[3]);
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    TestCase.fail();
+	}
+    }
+
+    @Test
+    public void testQueryListFormulaField() {
+	ListTestModelUsingQueryFormulaCall call = new ListTestModelUsingQueryFormulaCall();
+	List<Integer> ids = new ArrayList<Integer>();
+	ids.add(1);
+	ids.add(2);
+	ids.add(3);
+	ids.add(4);
+	call.setAppendValueList(ids);
+	try {
+	    HqlAndParams hql = HqlGenerator.generateHql(call);
+	    TestCase.assertEquals(
+		    "where 1 = 1 and (m.parent.id = ? or m.parent.id = ? or m.parent.id = ?)",
+		    hql.getWhere());
+	    TestCase.assertEquals(3, hql.getParams().length);
+	    TestCase.assertEquals(1, hql.getParams()[0]);
+	    TestCase.assertEquals(2, hql.getParams()[1]);
+	    TestCase.assertEquals(3, hql.getParams()[2]);
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    TestCase.fail();
+	}
+    }
+
+    @Test
+    public void testQueryListFormulaFieldError() {
+	ListTestModelUsingQueryFormulaCall call = new ListTestModelUsingQueryFormulaCall();
+	List<Integer> ids = new ArrayList<Integer>();
+	ids.add(1);
+	ids.add(2);
+	call.setAppendValueList(ids);
+	try {
+	    HqlGenerator.generateHql(call);
+	    TestCase.fail();
+	} catch (HqlGeneratException e) {
+	    TestCase.assertEquals(
+		    "Not enough parameters in Query parameter bean's field [appendValueList].",
+		    e.getMessage());
+	}
+    }
 }
