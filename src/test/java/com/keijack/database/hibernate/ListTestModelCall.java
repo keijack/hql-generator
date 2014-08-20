@@ -28,6 +28,12 @@ public class ListTestModelCall extends ListTestModelCallParent {
     @QueryCondition(field = "strValue", comparison = ComparisonType.IN, emptyAsNull = true)
     private List<String> starValuesIn;
 
+    /*
+     * 要相关的属性中全部包含所有的列表才算是真。
+     */
+    @QueryCondition(field = "modelItems", comparison = ComparisonType.CONTAINS)
+    private List<TestModelItem> hasItems;
+
     @QueryCondition(field = "modelItems", comparison = ComparisonType.NOTCONTAINS)
     private TestModelItem item;
 
@@ -62,6 +68,14 @@ public class ListTestModelCall extends ListTestModelCallParent {
 
     public void setStarValuesIn(List<String> starValuesIn) {
 	this.starValuesIn = starValuesIn;
+    }
+
+    public List<TestModelItem> getHasItems() {
+	return hasItems;
+    }
+
+    public void setHasItems(List<TestModelItem> hasItems) {
+	this.hasItems = hasItems;
     }
 
     public TestModelItem getItem() {

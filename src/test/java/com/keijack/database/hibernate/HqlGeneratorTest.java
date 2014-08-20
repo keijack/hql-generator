@@ -42,11 +42,39 @@ public class HqlGeneratorTest {
 	}
     }
 
+    @Test
+    public void testGetWhereExist() {
+	ListTestModelCall listCall = new ListTestModelCall();
+	TestModelItem testItem = new TestModelItem();
+	testItem.setItemId(1);
+	TestModelItem testItem2 = new TestModelItem();
+	testItem2.setItemId(2);
+	List<TestModelItem> items = new ArrayList<TestModelItem>();
+	items.add(testItem);
+	items.add(testItem2);
+	listCall.setHasItems(items);
+
+	listCall.setId(2);
+
+	try {
+	    HqlAndParams hql = HqlGenerator.generateHql(listCall);
+	    TestCase.assertEquals(
+		    "where 1 = 1 and (testModel.id) = ? and ? in elements (testModel.modelItems) and ? in elements (testModel.modelItems)",
+		    hql.getWhere());
+	    TestCase.assertEquals(Integer.valueOf(2), hql.getParams()[0]);
+	    TestCase.assertEquals(testItem, hql.getParams()[1]);
+	    TestCase.assertEquals(testItem2, hql.getParams()[2]);
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    TestCase.fail();
+	}
+    }
+
     /**
      * elements 的情况
      */
     @Test
-    public void testGetWhereExist() {
+    public void testGetWhereNotExist() {
 	ListTestModelCall listCall = new ListTestModelCall();
 	TestModelItem testItem = new TestModelItem();
 	listCall.setId(2);
