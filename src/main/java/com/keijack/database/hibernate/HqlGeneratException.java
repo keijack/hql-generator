@@ -5,9 +5,9 @@ package com.keijack.database.hibernate;
  * @author keijack.wu
  * 
  */
-public class HqlGeneratException extends Exception {
+public class HqlGeneratException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     public HqlGeneratException() {
 	super();
