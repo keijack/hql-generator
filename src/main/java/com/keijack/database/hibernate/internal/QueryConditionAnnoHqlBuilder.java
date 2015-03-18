@@ -1,11 +1,8 @@
 package com.keijack.database.hibernate.internal;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.keijack.database.hibernate.stereotype.QueryCondition;
-import com.keijack.database.hibernate.stereotype.HqlFunctions;
 
 /**
  * 
@@ -28,19 +25,6 @@ public abstract class QueryConditionAnnoHqlBuilder {
     }
 
     /**
-     * 配置各个函数的方法
-     */
-    protected static final Map<HqlFunctions, String> SQLFUNCTIONMAP = new HashMap<HqlFunctions, String>();
-
-    static {
-
-	SQLFUNCTIONMAP.put(HqlFunctions.YEAR, "year");
-	SQLFUNCTIONMAP.put(HqlFunctions.MONTH, "month");
-	SQLFUNCTIONMAP.put(HqlFunctions.DAY, "day");
-	SQLFUNCTIONMAP.put(HqlFunctions.DEFAULT, "");
-    }
-
-    /**
      * 获得由 SQLFunction 组成的属性查询条件左边
      * 
      * @param conditionAnno
@@ -50,7 +34,7 @@ public abstract class QueryConditionAnnoHqlBuilder {
 	    QueryCondition conditionAnno) {
 	StringBuilder filedWithSqlFunction = new StringBuilder();
 	filedWithSqlFunction
-		.append(SQLFUNCTIONMAP.get(conditionAnno.hqlFunction()))
+		.append(conditionAnno.hqlFunction().getName())
 		.append("(").append(this.getAlias()).append(".")
 		.append(conditionAnno.field()).append(")");
 	return filedWithSqlFunction;

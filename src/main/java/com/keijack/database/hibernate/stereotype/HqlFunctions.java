@@ -8,19 +8,37 @@ package com.keijack.database.hibernate.stereotype;
  */
 public enum HqlFunctions {
     /**
+     * 大写函数
+     */
+    UPPER("upper"),
+    /**
+     * 小写函数
+     */
+    LOWER("lower"),
+    /**
      * SQL函数, 获得一个日期的年份
      */
-    YEAR,
+    YEAR("year"),
     /**
      * SQL函数, 获得一个日期的月份
      */
-    MONTH,
+    MONTH("month"),
     /**
      * SQL函数, 获得一个日期
      */
-    DAY,
+    DAY("day"),
     /**
      * 原值
      */
-    DEFAULT
+    DEFAULT("");
+
+    private final String name;
+
+    private HqlFunctions(String functionName) {
+	this.name = functionName;
+    }
+
+    public String getName() {
+	return this.name;
+    }
 }
