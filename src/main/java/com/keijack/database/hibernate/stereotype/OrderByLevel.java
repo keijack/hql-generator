@@ -20,7 +20,7 @@ public enum OrderByLevel {
     /**
      * 第五级
      */
-    level(5);
+    level5(5);
 
     /**
      * @param index
