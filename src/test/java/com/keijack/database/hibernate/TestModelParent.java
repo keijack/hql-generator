@@ -1,4 +1,4 @@
-﻿package com.keijack.database.hibernate;
+package com.keijack.database.hibernate;
 
 /**
  * 测试父类

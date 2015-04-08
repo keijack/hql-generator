@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Mar 30, 2015 9:52:02 AM                                                        
+
+     project hql-generator    
+     Build, test, report code coverage
+                   
+     keijack.wu                                                                
+     ====================================================================== -->
+<project name="project" default="build-jar">
+	<!-- version -->
+	<property name="version" value="0.8" />
+
+	<!-- src properties and path -->
+	<property name="src.main" value="src/main/java" />
+	<property name="src.test" value="src/test/java" />
+	<property name="build" value="target/build" />
+	<property name="classes.main" value="${build}/classes/main" />
+	<property name="classes.test" value="${build}/classes/test" />
+	<property name="report.findbugs" value="${build}/report/findbugs" />
+	<property name="report.coverage" value="${build}/report/coverage" />
+	<property name="report.junit" value="${build}/report/junit" />
+	<property name="report.junit.cases" value="${report.junit}/case" />
+	<property name="report.junit.summary" value="${report.junit}/summary" />
+
+	<path id="test.lib">
+		<fileset dir="lib/test" />
+	</path>
+
+	<!-- Third party tools properties and path -->
+	<!-- findbugs -->
+	<property name="findbugs.home" value="lib/tools/findbugs-3.0.1" />
+
+	<!-- cobertura (code coverage) -->
+	<property name="cobertura.home" value="lib/tools/cobertura-2.1.1" />
+	<property name="cobertura.instrumented" value="${build}/classes/cobertura-instrumented" />
+
+	<path id="cobertura.lib">
+		<fileset dir="${cobertura.home}">
+			<include name="cobertura-2.1.1.jar" />
+			<include name="lib/**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- Third party task definition -->
+	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
+		<classpath path="${findbugs.home}/lib/findbugs-ant.jar" />
+	</taskdef>
+
+	<taskdef classpathref="cobertura.lib" resource="tasks.properties" />
+
+	<!-- Targets  -->
+	<target name="clean">
+		<delete dir="${build}" />
+		<mkdir dir="${classes.main}" />
+		<mkdir dir="${classes.test}" />
+		<mkdir dir="${report.findbugs}" />
+		<mkdir dir="${report.coverage}" />
+		<mkdir dir="${report.junit.cases}" />
+		<mkdir dir="${report.junit.summary}" />
+
+		<mkdir dir="${cobertura.instrumented}" />
+	</target>
+
+	<target name="compile-main" depends="clean">
+		<javac srcdir="${src.main}" destdir="${classes.main}" debug="true" debuglevel="lines,vars,source" includeantruntime="no" />
+	</target>
+
+	<target name="compile-test" depends="compile-main">
+		<javac srcdir="${src.test}" destdir="${classes.test}" debug="true" debuglevel="lines,vars,source" includeantruntime="no">
+			<classpath>
+				<pathelement location="${classes.main}" />
+				<path refid="test.lib" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="findbugs" depends="compile-main,compile-test">
+		<findbugs home="${findbugs.home}" maxrank="15" output="html" outputfile="${report.findbugs}/index.html">
+			<auxclasspath refid="test.lib" />
+			<sourcePath path="${src.main}" />
+			<class location="${classes.main}" />
+			<sourcepath path="${src.test}" />
+			<class location="${classes.test}" />
+		</findbugs>
+	</target>
+
+	<target name="test" depends="compile-main,compile-test">
+		<cobertura-instrument datafile="${report.coverage}/cobertura.ser" todir="${cobertura.instrumented}" ignoretrivial="true">
+			<fileset dir="${classes.main}" />
+		</cobertura-instrument>
+
+		<junit fork="yes" dir="${basedir}" failureproperty="test.failed">
+			<sysproperty key="net.sourceforge.cobertura.datafile" file="${report.coverage}/cobertura.ser" />
+
+			<classpath location="${cobertura.instrumented}" />
+			<classpath location="${classes.main}" />
+			<classpath location="${classes.test}" />
+
+			<classpath refid="cobertura.lib" />
+
+			<formatter type="xml" />
+			<test name="${testcase}" todir="${report.junit}" if="testcase" />
+			<batchtest todir="${report.junit.cases}" unless="testcase">
+				<fileset dir="${src.test}">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+
+		</junit>
+		<junitreport todir="${report.junit.summary}">
+			<fileset dir="${report.junit.cases}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${report.junit.summary}" />
+		</junitreport>
+
+		<cobertura-report format="html" srcdir="${src.main}" datafile="${report.coverage}/cobertura.ser" destdir="${report.coverage}" />
+
+	</target>
+
+
+	<target name="build-jar" depends="compile-main">
+		<jar basedir="${classes.main}" destfile="${build}/hql-generator-${version}.jar">
+			<include name="**/*.class" />
+		</jar>
+	</target>
+
+</project>
