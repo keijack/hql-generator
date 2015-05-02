@@ -18,9 +18,11 @@ public class NullQueryConditionAnnoHqlBuilder extends
     @Override
     public void generateHql(QueryCondition conditionAnno, Object param,
 	    StringBuilder where, List<Object> params) {
-	String notString = "";
+	String notString;
 	if (!(Boolean) param) {
 	    notString = "not ";
+	} else {
+	    notString = "";
 	}
 	where.append(" and ").append(super.getAlias()).append(".")
 		.append(conditionAnno.field()).append(" is ").append(notString)
