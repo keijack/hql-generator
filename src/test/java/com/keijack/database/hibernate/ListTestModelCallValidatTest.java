@@ -19,7 +19,7 @@ public class ListTestModelCallValidatTest {
     public void testListCall() {
 	QueryParamsValidator validator = new QueryParamsValidator();
 	TestCase.assertTrue(validator.validate(ListTestModelCall.class));
-	TestCase.assertTrue(validator.validate(ListIdFieldTestModelCall.class));
+	TestCase.assertTrue(validator.validate(ListIdParentFieldTestModelCall.class));
 	TestCase.assertTrue(validator.validate(ListTestModelCallChild.class));
     }
 }
