@@ -49,9 +49,8 @@ public class HqlFromGenerator {
 		selectString.append("distinct ");
 	    }
 	    for (int i = 0; i < selectFields.length; i++) {
-
 		selectString.append(alias).append(".").append(selectFields[i]);
-		if (i != 1) {
+		if (i != (selectFields.length - 1)) {
 		    selectString.append(",");
 		}
 		selectString.append(" ");

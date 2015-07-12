@@ -3,11 +3,12 @@ package com.keijack.database.hibernate;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 
+import com.keijack.database.hibernate.ListIdParentFieldTestModelCall.ListIdFieldTestModelCall;
 import com.keijack.database.hibernate.stereotype.OrderByLevel;
+
+import junit.framework.TestCase;
 
 /**
  * 测试
@@ -222,8 +223,22 @@ public class HqlGeneratorTest {
     }
 
     @Test
-    public void testSelectField() {
+    public void testSelectOneField() {
 	ListIdFieldTestModelCall call = new ListIdFieldTestModelCall();
+	try {
+	    HqlAndParams hql = HqlGenerator.generateHql(call);
+	    TestCase.assertEquals(
+		    "select distinct t.id from com.keijack.database.hibernate.TestModel t",
+		    hql.getFrom());
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    TestCase.fail();
+	}
+    }
+
+    @Test
+    public void testSelectField() {
+	ListIdParentFieldTestModelCall call = new ListIdParentFieldTestModelCall();
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(call);
 	    TestCase.assertEquals(
