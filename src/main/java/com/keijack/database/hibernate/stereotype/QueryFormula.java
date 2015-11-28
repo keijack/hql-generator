@@ -29,4 +29,11 @@ public @interface QueryFormula {
      */
     boolean appendValue() default true;
 
+    /**
+     * 是否过滤空，如果过滤空，则 "" 等同于NULL，空列表等同于 NULL
+     * 
+     * @return
+     */
+    boolean emptyAsNull() default false;
+
 }

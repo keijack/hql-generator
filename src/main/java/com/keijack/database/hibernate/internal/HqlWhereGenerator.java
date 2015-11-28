@@ -109,8 +109,7 @@ public class HqlWhereGenerator {
 	this.params = params.toArray();
     }
 
-    private void generateWhereFormQueryFormula(StringBuilder where,
-	    List<Object> params) throws HqlGeneratException {
+    private void generateWhereFormQueryFormula(StringBuilder where, List<Object> params) throws HqlGeneratException {
 	List<Field> queryConditionFields = ReflectionUtil
 		.getFieldsWithGivenAnnotationRecursively(
 			queryParamsObj.getClass(), QueryFormula.class);
@@ -120,14 +119,22 @@ public class HqlWhereGenerator {
 	}
     }
 
-    private void generateQueryFormulaFieldHql(Field field, StringBuilder where,
-	    List<Object> params) throws HqlGeneratException {
+    private void generateQueryFormulaFieldHql(Field field, StringBuilder where, List<Object> params)
+	    throws HqlGeneratException {
 	QueryFormula formula = field.getAnnotation(QueryFormula.class);
-	Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj,
-		field);
+	boolean emptyAsNull = formula.emptyAsNull();
+	Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj, field);
+
 	if (param == null) {
 	    return;
 	}
+	if (emptyAsNull && "".equals(param)) {
+	    return;
+	}
+	if (emptyAsNull && Collection.class.isInstance(param) && ((Collection<?>) param).isEmpty()) {
+	    return;
+	}
+
 	String formulaValue = formula.value();
 	where.append(" and (").append(formulaValue).append(")");
 	if (!formula.appendValue()) {
@@ -200,7 +207,7 @@ public class HqlWhereGenerator {
      */
     private void generateQueryConditionFieldHql(Field field,
 	    StringBuilder where, List<Object> params)
-	    throws HqlGeneratException {
+		    throws HqlGeneratException {
 	QueryCondition conditionAnno = field
 		.getAnnotation(QueryCondition.class);
 	Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj,
