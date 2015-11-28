@@ -36,4 +36,18 @@ public @interface QueryFormula {
      */
     boolean emptyAsNull() default false;
 
+    /**
+     * 额外增加前缀
+     * 
+     * @return
+     */
+    String preString() default "";
+
+    /**
+     * 额外增加的后缀
+     * 
+     * @return
+     */
+    String postString() default "";
+
 }

@@ -158,7 +158,7 @@ public class HqlWhereGenerator {
 		}
 		int i = 0;
 		for (Object paramItem : paramValues) {
-		    params.add(paramItem);
+		    params.add(this.wrapParam(paramItem, formula.preString(), formula.postString()));
 		    i++;
 		    if (i == requiredParamCount) {
 			break;
@@ -167,8 +167,16 @@ public class HqlWhereGenerator {
 	    }
 	} else {
 	    for (int i = 0; i < requiredParamCount; i++) {
-		params.add(param);
+		params.add(this.wrapParam(param, formula.preString(), formula.postString()));
 	    }
+	}
+    }
+
+    private Object wrapParam(Object param, String pre, String post) {
+	if (!String.class.isInstance(param)) {
+	    return param;
+	} else {
+	    return pre + (String) param + post;
 	}
     }
 
