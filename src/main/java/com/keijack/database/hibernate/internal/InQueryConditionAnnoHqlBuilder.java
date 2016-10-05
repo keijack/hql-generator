@@ -17,9 +17,9 @@ public class InQueryConditionAnnoHqlBuilder extends
      * {@inheritDoc}
      */
     @Override
-    public void generateHql(QueryCondition conditionAnno, Object param,
+    public void generateHqlFragment(QueryCondition conditionAnno, Object param,
 	    StringBuilder where, List<Object> params) {
-	where.append(" and (1 = 0");
+	where.append("(1 = 0");
 	for (Object obj : (Collection<?>) param) {
 	    StringBuilder filedWithSqlFunction = getHqlFieldWithSqlFunction(conditionAnno);
 	    where.append(" or ").append(filedWithSqlFunction).append(" = ?");

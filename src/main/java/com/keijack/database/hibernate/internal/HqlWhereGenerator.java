@@ -1,9 +1,9 @@
 package com.keijack.database.hibernate.internal;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -67,8 +67,7 @@ public class HqlWhereGenerator {
 
     private Object[] params;
 
-    public HqlWhereGenerator(QueryParamsFor queryParamsFor,
-	    Object queryParamsForAnno) {
+    public HqlWhereGenerator(QueryParamsFor queryParamsFor, Object queryParamsForAnno) {
 	super();
 	this.queryParamsForAnno = queryParamsFor;
 	this.queryParamsObj = queryParamsForAnno;
@@ -99,7 +98,7 @@ public class HqlWhereGenerator {
      */
     private void generate() throws HqlGeneratException {
 	StringBuilder where = new StringBuilder("where 1 = 1");
-	List<Object> params = new ArrayList<Object>();
+	List<Object> params = new LinkedList<Object>();
 
 	generateWhereFormQueryCondition(where, params);
 
@@ -111,8 +110,7 @@ public class HqlWhereGenerator {
 
     private void generateWhereFormQueryFormula(StringBuilder where, List<Object> params) throws HqlGeneratException {
 	List<Field> queryConditionFields = ReflectionUtil
-		.getFieldsWithGivenAnnotationRecursively(
-			queryParamsObj.getClass(), QueryFormula.class);
+		.getFieldsWithGivenAnnotationRecursively(queryParamsObj.getClass(), QueryFormula.class);
 
 	for (Field field : queryConditionFields) {
 	    generateQueryFormulaFieldHql(field, where, params);
@@ -193,8 +191,7 @@ public class HqlWhereGenerator {
     private void generateWhereFormQueryCondition(StringBuilder where,
 	    List<Object> params) throws HqlGeneratException {
 	List<Field> queryConditionFields = ReflectionUtil
-		.getFieldsWithGivenAnnotationRecursively(
-			queryParamsObj.getClass(), QueryCondition.class);
+		.getFieldsWithGivenAnnotationRecursively(queryParamsObj.getClass(), QueryCondition.class);
 
 	for (Field field : queryConditionFields) {
 	    generateQueryConditionFieldHql(field, where, params);
@@ -215,11 +212,9 @@ public class HqlWhereGenerator {
      */
     private void generateQueryConditionFieldHql(Field field,
 	    StringBuilder where, List<Object> params)
-		    throws HqlGeneratException {
-	QueryCondition conditionAnno = field
-		.getAnnotation(QueryCondition.class);
-	Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj,
-		field);
+	    throws HqlGeneratException {
+	QueryCondition conditionAnno = field.getAnnotation(QueryCondition.class);
+	Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj, field);
 	if (param == null) {
 	    return;
 	}
@@ -232,8 +227,7 @@ public class HqlWhereGenerator {
 		return;
 	    }
 	}
-	QueryConditionAnnoHqlBuilder hqlBuilder = CONDITIONHQLBUILDERS
-		.get(conditionAnno.comparison());
+	QueryConditionAnnoHqlBuilder hqlBuilder = CONDITIONHQLBUILDERS.get(conditionAnno.comparison());
 	String alias = queryParamsForAnno.alias();
 	hqlBuilder.setAlias(alias);
 	hqlBuilder.generateHql(conditionAnno, param, where, params);

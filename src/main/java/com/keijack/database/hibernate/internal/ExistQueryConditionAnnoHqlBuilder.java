@@ -2,6 +2,7 @@ package com.keijack.database.hibernate.internal;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.keijack.database.hibernate.stereotype.ComparisonType;
@@ -20,7 +21,7 @@ public class ExistQueryConditionAnnoHqlBuilder extends
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public void generateHql(QueryCondition conditionAnno, Object param,
+    public void generateHqlFragment(QueryCondition conditionAnno, Object param,
 	    StringBuilder where, List<Object> params) {
 	String notString = "";
 	if (conditionAnno.comparison().equals(ComparisonType.NOTCONTAINS)) {
@@ -32,13 +33,21 @@ public class ExistQueryConditionAnnoHqlBuilder extends
 	} else {
 	    objs.add(param);
 	}
-
+	StringBuilder wh = new StringBuilder("(");
+	List<Object> ps = new LinkedList<>();
 	for (Object p : objs) {
-	    where.append(" and ? ").append(notString).append("in elements (")
+	    if (wh.toString().length() > 1) {
+		wh.append(" and ");
+	    }
+	    wh.append("? ").append(notString).append("in elements (")
 		    .append(super.getAlias()).append(".")
 		    .append(conditionAnno.field()).append(")");
-	    params.add(p);
+	    ps.add(p);
 	}
+	wh.append(")");
+
+	where.append(wh.toString());
+	params.addAll(ps);
     }
 
 }

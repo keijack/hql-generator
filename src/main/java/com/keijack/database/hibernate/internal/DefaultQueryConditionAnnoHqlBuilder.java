@@ -34,10 +34,11 @@ public class DefaultQueryConditionAnnoHqlBuilder extends
     /**
      * {@inheritDoc}
      */
-    public void generateHql(QueryCondition conditionAnno, Object param,
+    @Override
+    public void generateHqlFragment(QueryCondition conditionAnno, Object param,
 	    StringBuilder where, List<Object> params) {
 	StringBuilder filedWithSqlFunction = getHqlFieldWithSqlFunction(conditionAnno);
-	where.append(" and ").append(filedWithSqlFunction).append(" ")
+	where.append(filedWithSqlFunction).append(" ")
 		.append(LOGICMAP.get(conditionAnno.comparison())).append(" ?");
 
 	if (param instanceof String) {

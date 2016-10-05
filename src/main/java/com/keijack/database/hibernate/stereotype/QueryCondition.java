@@ -28,6 +28,11 @@ public @interface QueryCondition {
     String field();
 
     /**
+     * 内嵌查询，如果一个 field 传入多个参数，将会生产成(field=list(0) and/or field=list(1)) 的条件
+     */
+    EmbedType embedType() default EmbedType.NONE;
+
+    /**
      * 额外增加前缀
      * 
      * @return

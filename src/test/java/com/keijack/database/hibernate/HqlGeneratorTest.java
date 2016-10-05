@@ -1,6 +1,7 @@
 package com.keijack.database.hibernate;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Test;
@@ -60,7 +61,7 @@ public class HqlGeneratorTest {
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(listCall);
 	    TestCase.assertEquals(
-		    "where 1 = 1 and (testModel.id) = ? and ? in elements (testModel.modelItems) and ? in elements (testModel.modelItems)",
+		    "where 1 = 1 and (testModel.id) = ? and (? in elements (testModel.modelItems) and ? in elements (testModel.modelItems))",
 		    hql.getWhere());
 	    TestCase.assertEquals(Integer.valueOf(2), hql.getParams()[0]);
 	    TestCase.assertEquals(testItem, hql.getParams()[1]);
@@ -83,7 +84,7 @@ public class HqlGeneratorTest {
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(listCall);
 	    TestCase.assertEquals(
-		    "where 1 = 1 and (testModel.id) = ? and ? not in elements (testModel.modelItems)",
+		    "where 1 = 1 and (testModel.id) = ? and (? not in elements (testModel.modelItems))",
 		    hql.getWhere());
 	    TestCase.assertEquals(Integer.valueOf(2), hql.getParams()[0]);
 	    TestCase.assertEquals(testItem, hql.getParams()[1]);
@@ -315,5 +316,20 @@ public class HqlGeneratorTest {
 		    "Not enough parameters in Query parameter bean's field [appendValueList].",
 		    e.getMessage());
 	}
+    }
+
+    @Test
+    public void testQueryListEmbed() {
+	ListTestModelCallEmbed call = new ListTestModelCallEmbed();
+	List<String> strs = new LinkedList<>();
+	strs.add("aaaa");
+	strs.add("bbb");
+	call.setStrValueEndWithOr(strs);
+	HqlAndParams hql = HqlGenerator.generateHql(call);
+	TestCase.assertEquals(
+		"from com.keijack.database.hibernate.TestModel testModel where 1 = 1 and ((testModel.strValue) like ? or (testModel.strValue) like ?) ",
+		hql.getHql());
+	TestCase.assertEquals("%aaaa", hql.getParams()[0]);
+	TestCase.assertEquals("%bbb", hql.getParams()[1]);
     }
 }
