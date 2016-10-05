@@ -9,7 +9,7 @@
      ====================================================================== -->
 <project name="project" default="build-jar">
 	<!-- version -->
-	<property name="version" value="0.9" />
+	<property name="version" value="0.10" />
 
 	<!-- src properties and path -->
 	<property name="src.main" value="src/main/java" />
