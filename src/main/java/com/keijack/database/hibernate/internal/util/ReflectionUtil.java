@@ -63,15 +63,15 @@ public final class ReflectionUtil {
 
     /**
      * @param obj
-     *            对象
+     * 对象
      * @param field
-     *            域
+     * 域
      * @return
      * @throws
      */
-    public static Object getFieldValueViaGetMethod(Object obj, Field field)
+    public static Object getFieldValueViaGetMethod(Object obj, String field)
 	    throws HqlGeneratException {
-	String fildName = field.getName();
+	String fildName = field;
 	fildName = fildName.substring(0, 1).toUpperCase()
 		+ fildName.substring(1);
 	Method getMethod;

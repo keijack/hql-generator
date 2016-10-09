@@ -121,7 +121,7 @@ public class HqlWhereGenerator {
 	    throws HqlGeneratException {
 	QueryFormula formula = field.getAnnotation(QueryFormula.class);
 	boolean emptyAsNull = formula.emptyAsNull();
-	Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj, field);
+	Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj, field.getName());
 
 	if (param == null) {
 	    return;
@@ -214,7 +214,7 @@ public class HqlWhereGenerator {
 	    StringBuilder where, List<Object> params)
 	    throws HqlGeneratException {
 	QueryCondition conditionAnno = field.getAnnotation(QueryCondition.class);
-	Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj, field);
+	Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj, field.getName());
 	if (param == null) {
 	    return;
 	}

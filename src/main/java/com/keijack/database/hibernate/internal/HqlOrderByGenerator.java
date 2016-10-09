@@ -95,8 +95,7 @@ public class HqlOrderByGenerator {
 	String alias = queryParamsForAnno.alias();
 	for (Field field : orderByFields) {
 	    OrderBy orderByAnno = field.getAnnotation(OrderBy.class);
-	    Object param = ReflectionUtil.getFieldValueViaGetMethod(
-		    queryParamsObj, field);
+	    Object param = ReflectionUtil.getFieldValueViaGetMethod(queryParamsObj, field.getName());
 	    if (param == null) {
 		continue;
 	    }
