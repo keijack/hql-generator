@@ -26,35 +26,22 @@ public class HqlWhereGenerator {
     /**
      * 使用什么HqlGenerator来生成
      */
-    private static final Map<ComparisonType, QueryConditionAnnoHqlBuilder> CONDITIONHQLBUILDERS = new HashMap<ComparisonType, QueryConditionAnnoHqlBuilder>();
+    private static final Map<ComparisonType, Class<? extends QueryConditionAnnoHqlBuilder>> CONDITIONHQLBUILDERS = new HashMap<>();
 
     static {
-	CONDITIONHQLBUILDERS.put(ComparisonType.EQUAL,
-		new DefaultQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.NOTEQUAL,
-		new DefaultQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.MORE,
-		new DefaultQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.MOREEQUAL,
-		new DefaultQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.LESS,
-		new DefaultQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.LESSEQUAL,
-		new DefaultQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.IN,
-		new InQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.NOTIN,
-		new NotInQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.LIKE,
-		new DefaultQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.NOTLIKE,
-		new DefaultQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.CONTAINS,
-		new ExistQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.NOTCONTAINS,
-		new ExistQueryConditionAnnoHqlBuilder());
-	CONDITIONHQLBUILDERS.put(ComparisonType.ISNULL,
-		new NullQueryConditionAnnoHqlBuilder());
+	CONDITIONHQLBUILDERS.put(ComparisonType.EQUAL, DefaultQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.NOTEQUAL, DefaultQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.MORE, DefaultQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.MOREEQUAL, DefaultQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.LESS, DefaultQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.LESSEQUAL, DefaultQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.IN, InQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.NOTIN, NotInQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.LIKE, DefaultQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.NOTLIKE, DefaultQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.CONTAINS, ExistQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.NOTCONTAINS, ExistQueryConditionAnnoHqlBuilder.class);
+	CONDITIONHQLBUILDERS.put(ComparisonType.ISNULL, NullQueryConditionAnnoHqlBuilder.class);
     }
 
     private final QueryParamsFor queryParamsForAnno;
@@ -227,10 +214,18 @@ public class HqlWhereGenerator {
 		return;
 	    }
 	}
-	QueryConditionAnnoHqlBuilder hqlBuilder = CONDITIONHQLBUILDERS.get(conditionAnno.comparison());
+	QueryConditionAnnoHqlBuilder hqlBuilder = getAnnoHqlBuilder(conditionAnno);
 	String alias = queryParamsForAnno.alias();
 	hqlBuilder.setAlias(alias);
 	hqlBuilder.generateHql(conditionAnno, param, where, params);
+    }
+
+    private QueryConditionAnnoHqlBuilder getAnnoHqlBuilder(QueryCondition conditionAnno) {
+	try {
+	    return CONDITIONHQLBUILDERS.get(conditionAnno.comparison()).newInstance();
+	} catch (InstantiationException | IllegalAccessException e) {
+	    throw new HqlGeneratException(e);
+	}
     }
 
 }
