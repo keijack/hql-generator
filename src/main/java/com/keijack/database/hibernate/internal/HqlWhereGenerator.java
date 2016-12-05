@@ -29,16 +29,8 @@ public class HqlWhereGenerator {
     private static final Map<ComparisonType, Class<? extends QueryConditionAnnoHqlBuilder>> CONDITIONHQLBUILDERS = new HashMap<>();
 
     static {
-	CONDITIONHQLBUILDERS.put(ComparisonType.EQUAL, DefaultQueryConditionAnnoHqlBuilder.class);
-	CONDITIONHQLBUILDERS.put(ComparisonType.NOTEQUAL, DefaultQueryConditionAnnoHqlBuilder.class);
-	CONDITIONHQLBUILDERS.put(ComparisonType.MORE, DefaultQueryConditionAnnoHqlBuilder.class);
-	CONDITIONHQLBUILDERS.put(ComparisonType.MOREEQUAL, DefaultQueryConditionAnnoHqlBuilder.class);
-	CONDITIONHQLBUILDERS.put(ComparisonType.LESS, DefaultQueryConditionAnnoHqlBuilder.class);
-	CONDITIONHQLBUILDERS.put(ComparisonType.LESSEQUAL, DefaultQueryConditionAnnoHqlBuilder.class);
 	CONDITIONHQLBUILDERS.put(ComparisonType.IN, InQueryConditionAnnoHqlBuilder.class);
 	CONDITIONHQLBUILDERS.put(ComparisonType.NOTIN, NotInQueryConditionAnnoHqlBuilder.class);
-	CONDITIONHQLBUILDERS.put(ComparisonType.LIKE, DefaultQueryConditionAnnoHqlBuilder.class);
-	CONDITIONHQLBUILDERS.put(ComparisonType.NOTLIKE, DefaultQueryConditionAnnoHqlBuilder.class);
 	CONDITIONHQLBUILDERS.put(ComparisonType.CONTAINS, ExistQueryConditionAnnoHqlBuilder.class);
 	CONDITIONHQLBUILDERS.put(ComparisonType.NOTCONTAINS, ExistQueryConditionAnnoHqlBuilder.class);
 	CONDITIONHQLBUILDERS.put(ComparisonType.ISNULL, NullQueryConditionAnnoHqlBuilder.class);
@@ -222,7 +214,11 @@ public class HqlWhereGenerator {
 
     private QueryConditionAnnoHqlBuilder getAnnoHqlBuilder(QueryCondition conditionAnno) {
 	try {
-	    return CONDITIONHQLBUILDERS.get(conditionAnno.comparison()).newInstance();
+	    Class<? extends QueryConditionAnnoHqlBuilder> clz = CONDITIONHQLBUILDERS.get(conditionAnno.comparison());
+	    if (clz == null)
+		return new DefaultQueryConditionAnnoHqlBuilder();
+	    else
+		return clz.newInstance();
 	} catch (InstantiationException | IllegalAccessException e) {
 	    throw new HqlGeneratException(e);
 	}
