@@ -63,11 +63,11 @@
 	</target>
 
 	<target name="compile-main" depends="clean">
-		<javac srcdir="${src.main}" destdir="${classes.main}" debug="true" debuglevel="lines,vars,source" includeantruntime="no" />
+		<javac source="1.7" target="1.7" srcdir="${src.main}" destdir="${classes.main}" debug="true" debuglevel="lines,vars,source" includeantruntime="no" />
 	</target>
 
 	<target name="compile-test" depends="compile-main">
-		<javac srcdir="${src.test}" destdir="${classes.test}" debug="true" debuglevel="lines,vars,source" includeantruntime="no">
+		<javac source="1.7" target="1.7" srcdir="${src.test}" destdir="${classes.test}" debug="true" debuglevel="lines,vars,source" includeantruntime="no">
 			<classpath>
 				<pathelement location="${classes.main}" />
 				<path refid="test.lib" />
@@ -120,7 +120,7 @@
 	</target>
 
 
-	<target name="build-jar" depends="compile-main">
+	<target name="build-jar" depends="compile-main, test">
 		<jar basedir="${classes.main}" destfile="${build}/hql-generator-${version}.jar">
 			<include name="**/*.class" />
 		</jar>
