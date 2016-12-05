@@ -213,12 +213,12 @@ public class HqlWhereGenerator {
     }
 
     private QueryConditionAnnoHqlBuilder getAnnoHqlBuilder(QueryCondition conditionAnno) {
+	Class<? extends QueryConditionAnnoHqlBuilder> clz = CONDITIONHQLBUILDERS.get(conditionAnno.comparison());
+	if (clz == null)
+	    clz = DefaultQueryConditionAnnoHqlBuilder.class;
+
 	try {
-	    Class<? extends QueryConditionAnnoHqlBuilder> clz = CONDITIONHQLBUILDERS.get(conditionAnno.comparison());
-	    if (clz == null)
-		return new DefaultQueryConditionAnnoHqlBuilder();
-	    else
-		return clz.newInstance();
+	    return clz.newInstance();
 	} catch (InstantiationException | IllegalAccessException e) {
 	    throw new HqlGeneratException(e);
 	}
