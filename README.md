@@ -29,20 +29,13 @@ public class QueryHibernateEntityParams extends ListTestModelCallParent {
 
 	@QueryCondition(field = "strValue", comparison = ComparisonType.LIKE, postString = "%")
 	private String strValueStartWith;
-	/*
-	 * 其中, 如果是 like 的话，prefix 和 suffix 中的 "%" 是根据Hql like 条件的内容来定的，因为传入的值是 null
-	 * 的话，Hql 生成器不会生成这部分的条件，emptyAsNull 是把空字符串（空的Collection）也会当成 null
-	 * 处理，否则就依然去数据库查询相关条件的内容
-	 */
+	
 	@QueryCondition(field = "strValue", comparison = ComparisonType.LIKE, preString = "%", emptyAsNull = true)
 	private String strValueEndWith;
 
 	@QueryCondition(field = "strValue", comparison = ComparisonType.IN, emptyAsNull = true)
 	private List<String> starValuesIn;
 
-	/*
-	 * 要相关的属性中全部包含所有的列表才算是真。
-	 */
 	@QueryCondition(field = "modelItems", comparison = ComparisonType.CONTAINS)
 	private List<HibernateEntityItem> hasItems;
 
@@ -50,13 +43,13 @@ public class QueryHibernateEntityParams extends ListTestModelCallParent {
 	private HibernateEntityItem item;
 	
 	@QueryFormula(value = "m.parent is not null", appendValue = false)
-    private Boolean notAppendValue;
+	private Boolean notAppendValue;
 
-    @QueryFormula("m.parent.id = ?")
-    private Integer appendValue;
+	@QueryFormula("m.parent.id = ?")
+	private Integer appendValue;
 
-    @QueryFormula("m.parent.id = ? or m.parent.id = ? or m.parent.id = ?")
-    private List<Integer> appendValueList;
+	@QueryFormula("m.parent.id = ? or m.parent.id = ? or m.parent.id = ?")
+	private List<Integer> appendValueList;
 
 	@OrderBy(field = "id", orderBy = SortOrder.DESC)
 	private OrderByLevel orderByIdDesc;
