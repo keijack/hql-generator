@@ -6,7 +6,7 @@ package org.keijack.database.hibernate;
  * @author Keijack
  * 
  */
-public class TestModelParent {
+public class HibernateEntityParent {
     /**
      * 父类id
      */

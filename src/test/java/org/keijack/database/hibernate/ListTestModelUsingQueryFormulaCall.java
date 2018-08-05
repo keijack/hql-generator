@@ -5,7 +5,7 @@ import java.util.List;
 import org.keijack.database.hibernate.stereotype.QueryFormula;
 import org.keijack.database.hibernate.stereotype.QueryParamsFor;
 
-@QueryParamsFor(value = TestModel.class, alias = "m")
+@QueryParamsFor(value = HibernateEntity.class, alias = "m")
 public class ListTestModelUsingQueryFormulaCall {
 
     @QueryFormula(value = "m.parent is not null", appendValue = false)

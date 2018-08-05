@@ -49,11 +49,11 @@ public class HqlGeneratorTest {
     @Test
     public void testGetWhereExist() {
 	ListTestModelCall listCall = new ListTestModelCall();
-	TestModelItem testItem = new TestModelItem();
+	HibernateEntityItem testItem = new HibernateEntityItem();
 	testItem.setItemId(1);
-	TestModelItem testItem2 = new TestModelItem();
+	HibernateEntityItem testItem2 = new HibernateEntityItem();
 	testItem2.setItemId(2);
-	List<TestModelItem> items = new ArrayList<TestModelItem>();
+	List<HibernateEntityItem> items = new ArrayList<HibernateEntityItem>();
 	items.add(testItem);
 	items.add(testItem2);
 	listCall.setHasItems(items);
@@ -80,7 +80,7 @@ public class HqlGeneratorTest {
     @Test
     public void testGetWhereNotExist() {
 	ListTestModelCall listCall = new ListTestModelCall();
-	TestModelItem testItem = new TestModelItem();
+	HibernateEntityItem testItem = new HibernateEntityItem();
 	listCall.setId(2);
 	listCall.setItem(testItem);
 	try {

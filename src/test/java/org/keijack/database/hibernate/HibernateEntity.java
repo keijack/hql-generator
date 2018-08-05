@@ -9,10 +9,13 @@ import java.util.Set;
  * @author Keijack
  * 
  */
-public class TestModel extends TestModelParent {
+// @Entity
+// @Table
+public class HibernateEntity extends HibernateEntityParent {
     /**
      * int 测试
      */
+	// @Id
     private int id;
 
     /**
@@ -28,12 +31,14 @@ public class TestModel extends TestModelParent {
     /**
      * 测试引入
      */
-    private TestModelParent parent;
+    // @ManyToOne
+    private HibernateEntityParent parent;
 
     /**
      * 测试子属性
      */
-    private Set<TestModelItem> modelItems;
+    // @OneToMany
+    private Set<HibernateEntityItem> modelItems;
 
     public int getId() {
 	return id;
@@ -59,19 +64,19 @@ public class TestModel extends TestModelParent {
 	this.date = date;
     }
 
-    public TestModelParent getParent() {
+    public HibernateEntityParent getParent() {
 	return parent;
     }
 
-    public void setParent(TestModelParent parent) {
+    public void setParent(HibernateEntityParent parent) {
 	this.parent = parent;
     }
 
-    public Set<TestModelItem> getModelItems() {
+    public Set<HibernateEntityItem> getModelItems() {
 	return modelItems;
     }
 
-    public void setModelItems(Set<TestModelItem> modelItems) {
+    public void setModelItems(Set<HibernateEntityItem> modelItems) {
 	this.modelItems = modelItems;
     }
 

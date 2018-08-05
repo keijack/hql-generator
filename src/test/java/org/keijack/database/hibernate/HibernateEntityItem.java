@@ -6,7 +6,9 @@ package org.keijack.database.hibernate;
  * @author Keijack
  * 
  */
-public class TestModelItem {
+// @Entity
+// @Table
+public class HibernateEntityItem {
     /**
      * 子类id
      */

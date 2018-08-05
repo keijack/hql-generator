@@ -11,7 +11,7 @@ import org.keijack.database.hibernate.stereotype.QueryParamsFor;
  * @author Keijack
  *
  */
-@QueryParamsFor(value = TestModel.class, alias = "testModel")
+@QueryParamsFor(value = HibernateEntity.class, alias = "testModel")
 public class ListTestModelCallEmbed {
 
     @QueryCondition(field = "strValue",
