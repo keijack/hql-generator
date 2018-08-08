@@ -16,11 +16,11 @@ It not suitable for you when
 
 This project is pushed to Maven central repository, you can use following dependency in you pom.xml
 ```xml
-		<dependency>
-			<groupId>org.keijack</groupId>
-			<artifactId>hql-generator</artifactId>
-			<version>1.0.0</version>
-		</dependency>
+<dependency>
+	<groupId>org.keijack</groupId>
+	<artifactId>hql-generator</artifactId>
+	<version>1.0.0</version>
+</dependency>
 ```
 
 The following is an example
