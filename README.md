@@ -79,9 +79,9 @@ Then you can generate the hql using:
 ```java
 QueryHibernateEntityParams params = new QueryHibernateEntityParams();
 // set the field you want to query
-HqlAndParams hql = HqlGenerator.generateHql(params);
-String hql = hql.getHql();
-Object[] params = hql.getParams(); // the length equals the count of `?` in the above hql string
+HqlAndParams hqlAndParams = HqlGenerator.generateHql(params);
+String hql = hqlAndParams.getHql();
+Object[] params = hqlAndParams.getParams(); // the length equals the count of `?` in the above hql string
 Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
 if (params != null && params.length > 0) {
 	for (int i = 0; i < params.length; i++) {
