@@ -2,16 +2,37 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.keijack.database</groupId>
+	<groupId>org.keijack</groupId>
 	<artifactId>hql-generator</artifactId>
 	<version>1.0.0</version>
-	<contributors>
-		<contributor>
-			<email>keijack.wu@gmail.com</email>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>9</version>
+	</parent>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/keijack/hql-generator</url>
+		<connection>https://github.com/keijack/hql-generator.git</connection>
+		<developerConnection>https://github.com/keijack</developerConnection>
+	</scm>
+
+	<developers>
+		<developer>
 			<name>Keijack</name>
-			<timezone>GTK+8</timezone>
-		</contributor>
-	</contributors>
+			<email>keijack.wu@gmail.com</email>
+			<url>https://github.com/keijack</url>
+		</developer>
+	</developers>
+
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>

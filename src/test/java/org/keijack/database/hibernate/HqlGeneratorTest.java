@@ -32,7 +32,7 @@ public class HqlGeneratorTest {
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(listCall);
 	    TestCase.assertEquals(
-		    "from org.keijack.database.hibernate.TestModel testModel",
+		    "from org.keijack.database.hibernate.HibernateEntity testModel",
 		    hql.getFrom());
 	    TestCase.assertEquals(
 		    "where 1 = 1 and (testModel.id) = ? and (testModel.strValue) like ?",
@@ -216,7 +216,7 @@ public class HqlGeneratorTest {
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(childCall);
 	    TestCase.assertEquals(
-		    "from org.keijack.database.hibernate.TestModel testModel",
+		    "from org.keijack.database.hibernate.HibernateEntity testModel",
 		    hql.getFrom());
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -231,7 +231,7 @@ public class HqlGeneratorTest {
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(call);
 	    TestCase.assertEquals(
-		    "select distinct t.id from org.keijack.database.hibernate.TestModel t",
+		    "select distinct t.id from org.keijack.database.hibernate.HibernateEntity t",
 		    hql.getFrom());
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -245,7 +245,7 @@ public class HqlGeneratorTest {
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(call);
 	    TestCase.assertEquals(
-		    "select distinct t.id, t.parent from org.keijack.database.hibernate.TestModel t",
+		    "select distinct t.id, t.parent from org.keijack.database.hibernate.HibernateEntity t",
 		    hql.getFrom());
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -329,7 +329,7 @@ public class HqlGeneratorTest {
 	call.setStrValueEndWithOr(strs);
 	HqlAndParams hql = HqlGenerator.generateHql(call);
 	TestCase.assertEquals(
-		"from org.keijack.database.hibernate.TestModel testModel where 1 = 1 and ((testModel.strValue) like ? or (testModel.strValue) like ?) ",
+		"from org.keijack.database.hibernate.HibernateEntity testModel where 1 = 1 and ((testModel.strValue) like ? or (testModel.strValue) like ?) ",
 		hql.getHql());
 	TestCase.assertEquals("%aaaa", hql.getParams()[0]);
 	TestCase.assertEquals("%bbb", hql.getParams()[1]);
