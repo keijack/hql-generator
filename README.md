@@ -77,9 +77,9 @@ public class QueryHibernateEntityParams extends ListTestModelCallParent {
 
 Then you can generate the hql using:
 ```java
-QueryHibernateEntityParams params = new QueryHibernateEntityParams();
+QueryHibernateEntityParams queryParams = new QueryHibernateEntityParams();
 // set the field you want to query
-HqlAndParams hqlAndParams = HqlGenerator.generateHql(params);
+HqlAndParams hqlAndParams = HqlGenerator.generateHql(queryParams);
 String hql = hqlAndParams.getHql();
 Object[] params = hqlAndParams.getParams(); // the length equals the count of `?` in the above hql string
 Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
