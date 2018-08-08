@@ -82,5 +82,12 @@ QueryHibernateEntityParams params = new QueryHibernateEntityParams();
 HqlAndParams hql = HqlGenerator.generateHql(params);
 String hql = hql.getHql();
 Object[] queryParams = hql.getParams(); // the length equals the count of `?` in the above hql string
+Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+if (params != null && params.length > 0) {
+	for (int i = 0; i < params.length; i++) {
+		query.setParameter(i, params[i]);
+	}
+}
+List<HibernateEntity> res = query.list();
 
 ```
