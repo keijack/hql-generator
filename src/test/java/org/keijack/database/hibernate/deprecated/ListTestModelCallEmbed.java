@@ -1,10 +1,10 @@
-package org.keijack.database.hibernate;
+package org.keijack.database.hibernate.deprecated;
 
 import java.util.List;
 
-import org.keijack.database.hibernate.stereotype.RestrictionType;
+import org.keijack.database.hibernate.stereotype.ComparisonType;
 import org.keijack.database.hibernate.stereotype.EmbedType;
-import org.keijack.database.hibernate.stereotype.QueryCriterion;
+import org.keijack.database.hibernate.stereotype.QueryCondition;
 import org.keijack.database.hibernate.stereotype.QueryParamsFor;
 
 /**
@@ -14,8 +14,8 @@ import org.keijack.database.hibernate.stereotype.QueryParamsFor;
 @QueryParamsFor(value = HibernateEntity.class, alias = "testModel")
 public class ListTestModelCallEmbed {
 
-    @QueryCriterion(field = "strValue",
-	    restriction = RestrictionType.LIKE,
+    @QueryCondition(field = "strValue",
+	    comparison = ComparisonType.LIKE,
 	    preString = "%",
 	    emptyAsNull = true,
 	    embedType = EmbedType.OR)

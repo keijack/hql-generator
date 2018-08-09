@@ -3,10 +3,10 @@ package org.keijack.database.hibernate;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import org.keijack.database.hibernate.stereotype.ComparisonType;
+import org.keijack.database.hibernate.stereotype.RestrictionType;
 import org.keijack.database.hibernate.stereotype.OrderBy;
 import org.keijack.database.hibernate.stereotype.OrderByLevel;
-import org.keijack.database.hibernate.stereotype.QueryCondition;
+import org.keijack.database.hibernate.stereotype.QueryCriterion;
 import org.keijack.database.hibernate.stereotype.QueryParamsFor;
 
 public class QueryParamsValidator {
@@ -49,8 +49,8 @@ public class QueryParamsValidator {
 	    throws Exception {
 	StringBuilder conditionTypeError = new StringBuilder();
 	for (Field callField : queryParamsClass.getDeclaredFields()) {
-	    QueryCondition conditionAnno = callField
-		    .getAnnotation(QueryCondition.class);
+	    QueryCriterion conditionAnno = callField
+		    .getAnnotation(QueryCriterion.class);
 	    if (conditionAnno == null) {
 		continue;
 	    }
@@ -58,7 +58,7 @@ public class QueryParamsValidator {
 		conditionTypeError.append("QueryCondition field error: "
 			+ callField.getName() + " is primitive.\r\n");
 	    }
-	    if (ComparisonType.ISNULL.equals(conditionAnno.comparison())
+	    if (RestrictionType.IS_NULL.equals(conditionAnno.restriction())
 		    && !Boolean.class.equals(callField.getType())) {
 		conditionTypeError.append("QueryCondition field error: "
 			+ callField.getName()
@@ -95,8 +95,8 @@ public class QueryParamsValidator {
 	StringBuilder modelFieldErroMsg = new StringBuilder();
 
 	for (Field callField : queryParamsClass.getDeclaredFields()) {
-	    QueryCondition conditionAnno = callField
-		    .getAnnotation(QueryCondition.class);
+	    QueryCriterion conditionAnno = callField
+		    .getAnnotation(QueryCriterion.class);
 	    OrderBy orderByAnno = callField.getAnnotation(OrderBy.class);
 	    if (conditionAnno == null && orderByAnno == null) {
 		continue;
@@ -147,8 +147,8 @@ public class QueryParamsValidator {
 	    throws Exception {
 	StringBuilder fieldErrorMsg = new StringBuilder();
 	for (Field callField : queryParamsClass.getDeclaredFields()) {
-	    QueryCondition conditionAnno = callField
-		    .getAnnotation(QueryCondition.class);
+	    QueryCriterion conditionAnno = callField
+		    .getAnnotation(QueryCriterion.class);
 	    OrderBy orderByAnno = callField.getAnnotation(OrderBy.class);
 	    if (conditionAnno == null && orderByAnno == null) {
 		continue;

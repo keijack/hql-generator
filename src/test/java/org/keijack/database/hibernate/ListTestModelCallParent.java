@@ -2,11 +2,11 @@ package org.keijack.database.hibernate;
 
 import java.util.List;
 
-import org.keijack.database.hibernate.stereotype.ComparisonType;
+import org.keijack.database.hibernate.stereotype.RestrictionType;
 import org.keijack.database.hibernate.stereotype.HqlFunctions;
 import org.keijack.database.hibernate.stereotype.OrderBy;
 import org.keijack.database.hibernate.stereotype.OrderByLevel;
-import org.keijack.database.hibernate.stereotype.QueryCondition;
+import org.keijack.database.hibernate.stereotype.QueryCriterion;
 import org.keijack.database.hibernate.stereotype.SortOrder;
 
 /**
@@ -19,25 +19,25 @@ public class ListTestModelCallParent {
     /**
      * order by parentStrValue
      */
-    @QueryCondition(field = "parent.parentStrValue", comparison = ComparisonType.NOTIN)
+    @QueryCriterion(field = "parent.parentStrValue", restriction = RestrictionType.NOT_IN)
     private List<String> notInParentStrValue;
 
     /**
      * strValues是否为空
      */
-    @QueryCondition(field = "strValue", comparison = ComparisonType.ISNULL)
+    @QueryCriterion(field = "strValue", restriction = RestrictionType.IS_NULL)
     private Boolean strValueIsNull;
 
     /**
      * ParentId 是否为空
      */
-    @QueryCondition(field = "parent.parentId", comparison = ComparisonType.ISNULL)
+    @QueryCriterion(field = "parent.parentId", restriction = RestrictionType.IS_NULL)
     private Boolean parentIdIsNull;
 
     /**
      * 获得日期
      */
-    @QueryCondition(field = "date", comparison = ComparisonType.EQUAL, hqlFunction = HqlFunctions.MONTH)
+    @QueryCriterion(field = "date", restriction = RestrictionType.EQUAL, hqlFunction = HqlFunctions.MONTH)
     private Integer monthOfDate;
 
     /**

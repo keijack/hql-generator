@@ -1,4 +1,4 @@
-package org.keijack.database.hibernate;
+package org.keijack.database.hibernate.deprecated;
 
 import junit.framework.TestCase;
 
@@ -17,7 +17,7 @@ public class ListTestModelCallValidatTest {
     @Test
     public void testListCall() {
 	QueryParamsValidator validator = new QueryParamsValidator();
-	TestCase.assertTrue(validator.validate(QueryHibernateEntityParams.class));
+	TestCase.assertTrue(validator.validate(ListTestModelCall.class));
 	TestCase.assertTrue(validator.validate(ListIdParentFieldTestModelCall.class));
 	TestCase.assertTrue(validator.validate(ListTestModelCallChild.class));
     }

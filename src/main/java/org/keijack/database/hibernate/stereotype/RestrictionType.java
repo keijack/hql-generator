@@ -7,7 +7,7 @@ package org.keijack.database.hibernate.stereotype;
  * @author Keijack
  * 
  */
-public enum ComparisonType {
+public enum RestrictionType {
 	/**
 	 * =
 	 */
@@ -15,7 +15,7 @@ public enum ComparisonType {
 	/**
 	 * !=
 	 */
-	NOTEQUAL,
+	NOT_EQUAL,
 	/**
 	 * >
 	 */
@@ -23,7 +23,7 @@ public enum ComparisonType {
 	/**
 	 * >=
 	 */
-	MOREEQUAL,
+	MORE_EQUAL,
 	/**
 	 * <
 	 */
@@ -31,7 +31,7 @@ public enum ComparisonType {
 	/**
 	 * <=
 	 */
-	LESSEQUAL,
+	LESS_EQUAL,
 	/**
 	 * in
 	 */
@@ -39,7 +39,7 @@ public enum ComparisonType {
 	/**
 	 * not in
 	 */
-	NOTIN,
+	NOT_IN,
 	/**
 	 * like
 	 */
@@ -47,7 +47,7 @@ public enum ComparisonType {
 	/**
 	 * not like
 	 */
-	NOTLIKE,
+	NOT_LIKE,
 	/**
 	 * in elements
 	 */
@@ -55,10 +55,10 @@ public enum ComparisonType {
 	/**
 	 * not in elements
 	 */
-	NOTCONTAINS,
+	NOT_CONTAINS,
 	/**
 	 * null
 	 */
-	ISNULL
+	IS_NULL
 
 }

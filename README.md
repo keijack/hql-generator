@@ -1,20 +1,22 @@
 hql-generator
 ============
 
-Generate hql from a parameter bean
+Generate hql from a POJO
 
-In my early projects, we wrote many hql string in codes, these hqls make many problems. First, it's hard to test these hqls; Secondary, you maybe write many if/else to make the combine conditions. So this project finally came out. It can generate hql from a bean with given annotations, so the IDE can check if your condition is right or not. 
-And I even offer a call validator for you to test your QueryParamsCall.
-You may use this tool in following condition:
-1. You have many hql that written in java code, and most of them comes form one table.
+As many of you have experienced, concatenating hql string is an annoying things when you using Hibernate. Of course, you can Criteria to do the query. But think of that, in some system, user want to input many fields to try to query the result, and sometimes they just want to query by the field they fill, but ignore the empty fields. Then you may write a lot of if phrase in your system.
+ 
+However, here we provided this hql-generator, you can just define a POJO, add some Annotation to the POJO and its fields, then you can easily use HqlGenerator.generate(POJO) to get the hql and all the parameters you need to create a Hibernate Query object. See the flowing example.
+
+This tool is suitable for you if
+1. You have many hql strings that written in your java code, and mostly these hql strings are not joined table query.
 2. You have to query data with combining AND conditions dynamically. 
 
-It not suitable for you when
+It may be not suitable for you if
 1. You have many table joins in your hql.
 2. You want to make dynamic condition from page for user to choose.
-3. You have OR query.
+3. You have complicated OR queries.
 
-This project is pushed to Maven central repository, you can use following dependency in you pom.xml
+This project is now in Maven central repository, you can use following dependency in you pom.xml
 ```xml
 <dependency>
 	<groupId>org.keijack</groupId>

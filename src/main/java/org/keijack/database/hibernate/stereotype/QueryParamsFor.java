@@ -15,29 +15,29 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface QueryParamsFor {
 
-    /**
-     * 要select的属性
-     * 
-     * @return
-     */
-    String[] fields() default {};
+	/**
+	 * 要select的属性
+	 * 
+	 * @return
+	 */
+	String[] fields() default {};
 
-    /**
-     * 是否对某些属性进行 distinct 查询
-     */
-    boolean distinct() default false;
+	/**
+	 * 是否对某些属性进行 distinct 查询
+	 */
+	boolean distinct() default false;
 
-    /**
-     * 用来查询什么类
-     * 
-     * @return
-     */
-    Class<?> value();
+	/**
+	 * 用来查询什么类
+	 * 
+	 * @return
+	 */
+	Class<?> value();
 
-    /**
-     * 别名, 默认是 a
-     * 
-     * @return
-     */
-    String alias() default "a";
+	/**
+	 * 别名, 默认是 a
+	 * 
+	 * @return
+	 */
+	String alias() default "a";
 }

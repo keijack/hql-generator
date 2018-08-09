@@ -7,63 +7,63 @@ package org.keijack.database.hibernate;
  * 
  */
 public class HqlAndParams {
-    /**
-     * from 语句
-     */
-    private String from = "";
+	/**
+	 * from 语句
+	 */
+	private String from = "";
 
-    /**
-     * where语句
-     */
-    private String where = "";
+	/**
+	 * where语句
+	 */
+	private String where = "";
 
-    /**
-     * orderBy 语句
-     */
-    private String orderBy = "";
+	/**
+	 * orderBy 语句
+	 */
+	private String orderBy = "";
 
-    /**
-     * 参数
-     */
-    private Object[] params = {};
+	/**
+	 * 参数
+	 */
+	private Object[] params = {};
 
-    public String getFrom() {
-	return from;
-    }
+	public String getFrom() {
+		return from;
+	}
 
-    public void setFrom(String from) {
-	this.from = from;
-    }
+	public void setFrom(String from) {
+		this.from = from;
+	}
 
-    public String getWhere() {
-	return where;
-    }
+	public String getWhere() {
+		return where;
+	}
 
-    public void setWhere(String where) {
-	this.where = where;
-    }
+	public void setWhere(String where) {
+		this.where = where;
+	}
 
-    public String getOrderBy() {
-	return orderBy;
-    }
+	public String getOrderBy() {
+		return orderBy;
+	}
 
-    public void setOrderBy(String orderBy) {
-	this.orderBy = orderBy;
-    }
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
+	}
 
-    public Object[] getParams() {
-	return params;
-    }
+	public Object[] getParams() {
+		return params;
+	}
 
-    public void setParams(Object[] params) {
-	this.params = params;
-    }
+	public void setParams(Object[] params) {
+		this.params = params;
+	}
 
-    /**
-     * 
-     * @return Hql语句
-     */
-    public String getHql() {
-	return from + " " + where + " " + orderBy;
-    }
+	/**
+	 * 
+	 * @return Hql语句
+	 */
+	public String getHql() {
+		return from + " " + where + " " + orderBy;
+	}
 }

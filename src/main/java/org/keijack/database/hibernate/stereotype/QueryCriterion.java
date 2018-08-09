@@ -8,16 +8,18 @@ import java.lang.annotation.Target;
 /**
  * 
  * @author Keijack
+ * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface QueryCondition {
+public @interface QueryCriterion {
+
 	/**
 	 * 这个查询是哪个查询
 	 * 
 	 * @return
 	 */
-	ComparisonType comparison();
+	RestrictionType restriction();
 
 	/**
 	 * 用于哪个Filed

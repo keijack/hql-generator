@@ -6,6 +6,6 @@ package org.keijack.database.hibernate.stereotype;
  */
 public enum EmbedType {
 
-    NONE, AND, OR
+	NONE, AND, OR
 
 }

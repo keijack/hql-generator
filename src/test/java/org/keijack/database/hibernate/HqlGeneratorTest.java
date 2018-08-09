@@ -26,7 +26,7 @@ public class HqlGeneratorTest {
      */
     @Test
     public void testGetHqlBasic() {
-	ListTestModelCall listCall = new ListTestModelCall();
+	QueryHibernateEntityParams listCall = new QueryHibernateEntityParams();
 	listCall.setId(1);
 	listCall.setStrValueStartWith("abc");
 	try {
@@ -48,7 +48,7 @@ public class HqlGeneratorTest {
 
     @Test
     public void testGetWhereExist() {
-	ListTestModelCall listCall = new ListTestModelCall();
+	QueryHibernateEntityParams listCall = new QueryHibernateEntityParams();
 	HibernateEntityItem testItem = new HibernateEntityItem();
 	testItem.setItemId(1);
 	HibernateEntityItem testItem2 = new HibernateEntityItem();
@@ -79,7 +79,7 @@ public class HqlGeneratorTest {
      */
     @Test
     public void testGetWhereNotExist() {
-	ListTestModelCall listCall = new ListTestModelCall();
+	QueryHibernateEntityParams listCall = new QueryHibernateEntityParams();
 	HibernateEntityItem testItem = new HibernateEntityItem();
 	listCall.setId(2);
 	listCall.setItem(testItem);
@@ -101,7 +101,7 @@ public class HqlGeneratorTest {
      */
     @Test
     public void testGetWhereIn() {
-	ListTestModelCall listCall = new ListTestModelCall();
+	QueryHibernateEntityParams listCall = new QueryHibernateEntityParams();
 	listCall.setId(1);
 	List<String> starValuesIn = new ArrayList<String>();
 	starValuesIn.add("abcde");
@@ -132,7 +132,7 @@ public class HqlGeneratorTest {
      */
     @Test
     public void testGetWhereNull() {
-	ListTestModelCall listCall = new ListTestModelCall();
+	QueryHibernateEntityParams listCall = new QueryHibernateEntityParams();
 	listCall.setStrValueIsNull(true);
 	listCall.setParentIdIsNull(false);
 
@@ -153,7 +153,7 @@ public class HqlGeneratorTest {
      */
     @Test
     public void testWhereIgnoreNull() {
-	ListTestModelCall listCall = new ListTestModelCall();
+	QueryHibernateEntityParams listCall = new QueryHibernateEntityParams();
 	listCall.setStrValueStartWith("");
 	listCall.setStarValuesIn(new ArrayList<String>());
 	listCall.setStrValueEndWith("");
@@ -176,10 +176,10 @@ public class HqlGeneratorTest {
      */
     @Test
     public void testGetOrderBy() {
-	ListTestModelCall listCall = new ListTestModelCall();
-	listCall.setOrderByIdDesc(OrderByLevel.level2);
-	listCall.setOrderByStrValueAsc(OrderByLevel.level1);
-	listCall.setOrderByParentId(OrderByLevel.level2);
+	QueryHibernateEntityParams listCall = new QueryHibernateEntityParams();
+	listCall.setOrderByIdDesc(OrderByLevel.LV2);
+	listCall.setOrderByStrValueAsc(OrderByLevel.LV1);
+	listCall.setOrderByParentId(OrderByLevel.LV2);
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(listCall);
 	    TestCase.assertEquals(
@@ -197,7 +197,7 @@ public class HqlGeneratorTest {
      */
     @Test
     public void testSQLFunction() {
-	ListTestModelCall listCall = new ListTestModelCall();
+	QueryHibernateEntityParams listCall = new QueryHibernateEntityParams();
 	listCall.setMonthOfDate(10);
 	try {
 	    HqlAndParams hql = HqlGenerator.generateHql(listCall);

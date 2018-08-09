@@ -15,17 +15,17 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface OrderBy {
-    /**
-     * 字段
-     * 
-     * @return
-     */
-    String field();
+	/**
+	 * 字段
+	 * 
+	 * @return
+	 */
+	String field();
 
-    /**
-     * 排序
-     * 
-     * @return
-     */
-    SortOrder orderBy() default SortOrder.ASC;
+	/**
+	 * 排序
+	 * 
+	 * @return
+	 */
+	SortOrder orderBy() default SortOrder.ASC;
 }

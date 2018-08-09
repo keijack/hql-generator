@@ -6,5 +6,5 @@ package org.keijack.database.hibernate;
  * @author Keijack
  * 
  */
-public class ListTestModelCallChild extends ListTestModelCall {
+public class ListTestModelCallChild extends QueryHibernateEntityParams {
 }
