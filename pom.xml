@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.keijack</groupId>
 	<artifactId>hql-generator</artifactId>
-	<version>1.0.1</version>
+	<version>2.0.0</version>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
