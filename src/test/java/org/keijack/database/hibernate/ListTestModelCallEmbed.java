@@ -14,19 +14,15 @@ import org.keijack.database.hibernate.stereotype.QueryParamsFor;
 @QueryParamsFor(value = HibernateEntity.class, alias = "testModel")
 public class ListTestModelCallEmbed {
 
-    @QueryCriterion(field = "strValue",
-	    restriction = RestrictionType.LIKE,
-	    preString = "%",
-	    emptyAsNull = true,
-	    embedType = EmbedType.OR)
-    private List<String> strValueEndWithOr;
+	@QueryCriterion(field = "strValue", restriction = RestrictionType.LIKE, preString = "%", emptyAsNull = true, embedType = EmbedType.OR)
+	private List<String> strValueEndWithOr;
 
-    public List<String> getStrValueEndWithOr() {
-	return strValueEndWithOr;
-    }
+	public List<String> getStrValueEndWithOr() {
+		return strValueEndWithOr;
+	}
 
-    public void setStrValueEndWithOr(List<String> strValueEndWithOr) {
-	this.strValueEndWithOr = strValueEndWithOr;
-    }
+	public void setStrValueEndWithOr(List<String> strValueEndWithOr) {
+		this.strValueEndWithOr = strValueEndWithOr;
+	}
 
 }

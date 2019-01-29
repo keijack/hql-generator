@@ -1,10 +1,12 @@
 package org.keijack.database.hibernate;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * 拼成一个所必须有的参数
- * 
+ *
  * @author Keijack
- * 
  */
 public class HqlAndParams {
 	/**
@@ -25,7 +27,7 @@ public class HqlAndParams {
 	/**
 	 * 参数
 	 */
-	private Object[] params = {};
+	private Map<String, Object> params = new LinkedHashMap<>();
 
 	public String getFrom() {
 		return from;
@@ -51,16 +53,15 @@ public class HqlAndParams {
 		this.orderBy = orderBy;
 	}
 
-	public Object[] getParams() {
+	public Map<String, Object> getParams() {
 		return params;
 	}
 
-	public void setParams(Object[] params) {
+	public void setParams(Map<String, Object> params) {
 		this.params = params;
 	}
 
 	/**
-	 * 
 	 * @return Hql语句
 	 */
 	public String getHql() {

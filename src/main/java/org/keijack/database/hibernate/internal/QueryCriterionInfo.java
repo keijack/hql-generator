@@ -1,32 +1,20 @@
 package org.keijack.database.hibernate.internal;
 
-import java.util.EnumMap;
+import java.lang.reflect.Field;
 
-import org.keijack.database.hibernate.stereotype.ComparisonType;
 import org.keijack.database.hibernate.stereotype.EmbedType;
 import org.keijack.database.hibernate.stereotype.HqlFunctions;
-import org.keijack.database.hibernate.stereotype.QueryCondition;
 import org.keijack.database.hibernate.stereotype.QueryCriterion;
 import org.keijack.database.hibernate.stereotype.RestrictionType;
 
 class QueryCriterionInfo {
 
-	private static final EnumMap<ComparisonType, RestrictionType> C_R = new EnumMap<>(ComparisonType.class);
-	static {
-		C_R.put(ComparisonType.EQUAL, RestrictionType.EQUAL);
-		C_R.put(ComparisonType.NOTEQUAL, RestrictionType.NOT_EQUAL);
-		C_R.put(ComparisonType.MORE, RestrictionType.MORE);
-		C_R.put(ComparisonType.MOREEQUAL, RestrictionType.MORE_EQUAL);
-		C_R.put(ComparisonType.LESS, RestrictionType.LESS);
-		C_R.put(ComparisonType.LESSEQUAL, RestrictionType.LESS_EQUAL);
-		C_R.put(ComparisonType.IN, RestrictionType.IN);
-		C_R.put(ComparisonType.NOTIN, RestrictionType.NOT_IN);
-		C_R.put(ComparisonType.LIKE, RestrictionType.LIKE);
-		C_R.put(ComparisonType.NOTLIKE, RestrictionType.NOT_LIKE);
-		C_R.put(ComparisonType.CONTAINS, RestrictionType.CONTAINS);
-		C_R.put(ComparisonType.NOTCONTAINS, RestrictionType.NOT_CONTAINS);
-		C_R.put(ComparisonType.ISNULL, RestrictionType.IS_NULL);
-	}
+	private final String beanFieldName;
+
+	/**
+	 * If the annotation decorate a list, this may show which element in the list
+	 */
+	private Integer seq;
 
 	private final RestrictionType restriction;
 
@@ -42,7 +30,10 @@ class QueryCriterionInfo {
 
 	private final boolean emptyAsNull;
 
-	public QueryCriterionInfo(QueryCriterion criterion) {
+	QueryCriterionInfo(Field field) {
+		this.beanFieldName = field.getName();
+
+		QueryCriterion criterion = field.getAnnotation(QueryCriterion.class);
 		this.restriction = criterion.restriction();
 		this.field = criterion.field();
 		this.embedType = criterion.embedType();
@@ -52,17 +43,27 @@ class QueryCriterionInfo {
 		this.emptyAsNull = criterion.emptyAsNull();
 	}
 
-	public QueryCriterionInfo(QueryCondition criterion) {
-		this.restriction = C_R.get(criterion.comparison());
-		this.field = criterion.field();
-		this.embedType = criterion.embedType();
-		this.preString = criterion.preString();
-		this.postString = criterion.postString();
-		this.hqlFunction = criterion.hqlFunction();
-		this.emptyAsNull = criterion.emptyAsNull();
+	public String getParamKey() {
+		if (this.getSeq() == null) {
+			return this.getBeanFieldName();
+		} else {
+			return this.getBeanFieldName() + this.getSeq();
+		}
 	}
 
-	public RestrictionType getRestriction() {
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public void setSeq(Integer seq) {
+		this.seq = seq;
+	}
+
+	public String getBeanFieldName() {
+		return beanFieldName;
+	}
+
+	RestrictionType getRestriction() {
 		return restriction;
 	}
 
@@ -70,23 +71,23 @@ class QueryCriterionInfo {
 		return field;
 	}
 
-	public EmbedType getEmbedType() {
+	EmbedType getEmbedType() {
 		return embedType;
 	}
 
-	public String getPreString() {
+	String getPreString() {
 		return preString;
 	}
 
-	public String getPostString() {
+	String getPostString() {
 		return postString;
 	}
 
-	public HqlFunctions getHqlFunction() {
+	HqlFunctions getHqlFunction() {
 		return hqlFunction;
 	}
 
-	public boolean isEmptyAsNull() {
+	boolean isEmptyAsNull() {
 		return emptyAsNull;
 	}
 

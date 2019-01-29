@@ -1,8 +1,8 @@
 package org.keijack.database.hibernate.internal;
 
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.keijack.database.hibernate.stereotype.EmbedType;
 
@@ -43,41 +43,43 @@ public abstract class QueryCriterionAnnoHqlBuilder {
 
 	/**
 	 * 
-	 * @param conditionAnno 条件标注
-	 * @param obj           值
-	 * @param where         Hql收集参数
-	 * @param params        参数收集参数
+	 * @param annoInfo 条件标注
+	 * @param obj      值
+	 * @param where    Hql收集参数
+	 * @param params   参数收集参数
 	 */
-	public void generateHql(QueryCriterionInfo conditionAnno, Object obj, StringBuilder where,
-			List<Object> params) {
+	public void generateHql(QueryCriterionInfo annoInfo, Object obj, StringBuilder where,
+			Map<String, Object> params) {
 		StringBuilder wh = new StringBuilder(" and ");
-		List<Object> pas = new LinkedList<>();
+		Map<String, Object> pas = new LinkedHashMap<>();
 
 		if (obj == null) {
 			return;
-		} else if (EmbedType.NONE.equals(conditionAnno.getEmbedType()) || !Collection.class.isInstance(obj)) {
-			this.generateHqlFragment(conditionAnno, obj, wh, pas);
+		} else if (EmbedType.NONE.equals(annoInfo.getEmbedType()) || !Collection.class.isInstance(obj)) {
+			this.generateHqlFragment(annoInfo, obj, wh, pas);
 		} else if (((Collection<?>) obj).isEmpty()) {
 			return;
 		} else if (((Collection<?>) obj).size() == 1) {
-			this.generateHqlFragment(conditionAnno, ((Collection<?>) obj).toArray(new Object[1])[0], wh, pas);
+			this.generateHqlFragment(annoInfo, ((Collection<?>) obj).toArray(new Object[1])[0], wh, pas);
 		} else {
 			StringBuilder w = new StringBuilder("(");
-			List<Object> p = new LinkedList<>();
+			Map<String, Object> p = new LinkedHashMap<>();
+			int i = 0;
 			for (Object o : (Collection<?>) obj) {
+				annoInfo.setSeq(i++);
 				if (w.toString().length() != 1) {
-					w.append(" " + conditionAnno.getEmbedType().toString().toLowerCase() + " ");
+					w.append(" " + annoInfo.getEmbedType().toString().toLowerCase() + " ");
 				}
-				this.generateHqlFragment(conditionAnno, o, w, p);
+				this.generateHqlFragment(annoInfo, o, w, p);
 			}
 			w.append(")");
 
 			wh.append(w.toString());
-			pas.addAll(p);
+			pas.putAll(p);
 		}
 
 		where.append(wh.toString());
-		params.addAll(pas);
+		params.putAll(pas);
 	}
 
 	/**
@@ -88,5 +90,5 @@ public abstract class QueryCriterionAnnoHqlBuilder {
 	 * @param params        参数收集参数
 	 */
 	public abstract void generateHqlFragment(QueryCriterionInfo conditionAnno, Object param, StringBuilder where,
-			List<Object> params);
+			Map<String, Object> params);
 }

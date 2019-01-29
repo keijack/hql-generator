@@ -1,7 +1,7 @@
 package org.keijack.database.hibernate.internal;
 
 import java.util.EnumMap;
-import java.util.List;
+import java.util.Map;
 
 import org.keijack.database.hibernate.stereotype.RestrictionType;
 
@@ -32,16 +32,17 @@ public class DefaultQueryCriterionAnnoHqlBuilder extends QueryCriterionAnnoHqlBu
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void generateHqlFragment(QueryCriterionInfo conditionAnno, Object param,
-			StringBuilder where, List<Object> params) {
-		StringBuilder filedWithSqlFunction = getHqlFieldWithSqlFunction(conditionAnno);
+	public void generateHqlFragment(QueryCriterionInfo annoInfo, Object param,
+			StringBuilder where, Map<String, Object> params) {
+		StringBuilder filedWithSqlFunction = getHqlFieldWithSqlFunction(annoInfo);
 		where.append(filedWithSqlFunction).append(" ")
-				.append(LOGICMAP.get(conditionAnno.getRestriction())).append(" ?");
+				.append(LOGICMAP.get(annoInfo.getRestriction())).append(" :")
+				.append(annoInfo.getParamKey());
 
 		if (param instanceof String) {
-			params.add(conditionAnno.getPreString() + param + conditionAnno.getPostString());
+			params.put(annoInfo.getParamKey(), annoInfo.getPreString() + param + annoInfo.getPostString());
 		} else {
-			params.add(param);
+			params.put(annoInfo.getParamKey(), param);
 		}
 	}
 }

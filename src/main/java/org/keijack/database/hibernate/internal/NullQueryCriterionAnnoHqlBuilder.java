@@ -1,6 +1,6 @@
 package org.keijack.database.hibernate.internal;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -13,8 +13,8 @@ public class NullQueryCriterionAnnoHqlBuilder extends QueryCriterionAnnoHqlBuild
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void generateHqlFragment(QueryCriterionInfo conditionAnno, Object param,
-			StringBuilder where, List<Object> params) {
+	public void generateHqlFragment(QueryCriterionInfo annoInfo, Object param,
+			StringBuilder where, Map<String, Object> params) {
 		String notString;
 		if (!(Boolean) param) {
 			notString = "not ";
@@ -22,7 +22,7 @@ public class NullQueryCriterionAnnoHqlBuilder extends QueryCriterionAnnoHqlBuild
 			notString = "";
 		}
 		where.append(super.getAlias()).append(".")
-				.append(conditionAnno.getField()).append(" is ").append(notString)
+				.append(annoInfo.getField()).append(" is ").append(notString)
 				.append("null");
 	}
 }
