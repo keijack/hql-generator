@@ -32,10 +32,6 @@ public class HqlFromGenerator {
 		return from;
 	}
 
-	/**
-	 * @param listParamsObj ListCall
-	 * @param hqlResult     收集参数
-	 */
 	public void generate() {
 		String alias = queryParamsForAnno.alias();
 		Class<?> modelClass = queryParamsForAnno.value();

@@ -21,8 +21,8 @@
 
 	<scm>
 		<url>https://github.com/keijack/hql-generator</url>
-		<connection>scm:git:https://github.com/keijack/hql-generator.git</connection>
-		<developerConnection>scm:git:https://github.com/keijack</developerConnection>
+		<connection>https://github.com/keijack/hql-generator.git</connection>
+		<developerConnection>https://github.com/keijack</developerConnection>
 	</scm>
 
 	<developers>

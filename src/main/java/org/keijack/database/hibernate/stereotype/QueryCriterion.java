@@ -17,47 +17,49 @@ public @interface QueryCriterion {
 	/**
 	 * 这个查询是哪个查询
 	 * 
-	 * @return
+	 * @return 这个查询是哪个查询
 	 */
 	RestrictionType restriction();
 
 	/**
 	 * 用于哪个Filed
 	 * 
-	 * @return
+	 * @return 用于哪个Filed
 	 */
 	String field();
 
 	/**
 	 * 内嵌查询，如果一个 field 传入多个参数，将会生产成(field=list(0) and/or field=list(1)) 的条件
+	 * 
+	 * @return 内嵌查询类
 	 */
 	EmbedType embedType() default EmbedType.NONE;
 
 	/**
 	 * 额外增加前缀
 	 * 
-	 * @return
+	 * @return 前缀
 	 */
 	String preString() default "";
 
 	/**
 	 * 额外增加的后缀
 	 * 
-	 * @return
+	 * @return 后缀
 	 */
 	String postString() default "";
 
 	/**
 	 * 需要使用的SQL函数
 	 * 
-	 * @return
+	 * @return SQL函数
 	 */
 	HqlFunctions hqlFunction() default HqlFunctions.DEFAULT;
 
 	/**
 	 * 是否过滤空，如果过滤空，则 "" 等同于NULL，空列表等同于 NULL
 	 * 
-	 * @return
+	 * @return 是否过滤空
 	 */
 	boolean emptyAsNull() default false;
 }

@@ -18,26 +18,26 @@ public @interface QueryParamsFor {
 	/**
 	 * 要select的属性
 	 * 
-	 * @return
+	 * @return 要select的属性
 	 */
 	String[] fields() default {};
 
 	/**
-	 * 是否对某些属性进行 distinct 查询
+	 * @return 是否对某些属性进行 distinct 查询
 	 */
 	boolean distinct() default false;
 
 	/**
 	 * 用来查询什么类
 	 * 
-	 * @return
+	 * @return 用来查询什么类
 	 */
 	Class<?> value();
 
 	/**
 	 * 别名, 默认是 a
 	 * 
-	 * @return
+	 * @return 别名
 	 */
 	String alias() default "a";
 }

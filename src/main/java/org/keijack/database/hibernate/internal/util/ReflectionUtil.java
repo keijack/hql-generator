@@ -26,9 +26,10 @@ public final class ReflectionUtil {
 	/**
 	 * 获得一个类给定类型的标注
 	 * 
+	 * @param <T>                获取一个标注
 	 * @param object           需要获取标注的对象
-	 * @param requiredAnnoType 需要获取的标注
-	 * @return
+	 * @param requiredAnnoType 需要获取的标注的类型
+	 * @return 返回标注或者 Null
 	 */
 	public static <T extends Annotation> T getClassAnnotationRecursively(
 			Object object, Class<T> requiredAnnoType) {
@@ -60,7 +61,9 @@ public final class ReflectionUtil {
 	}
 
 	/**
-	 * @param obj 对象 @param field 域 @return @throws
+	 * @param obj   对象
+	 * @param field 域
+	 * @return 通过 get 方法获取的值
 	 */
 	public static Object getFieldValueViaGetMethod(Object obj, String field) {
 		String fildName = field;

@@ -29,15 +29,15 @@ public abstract class QueryCriterionAnnoHqlBuilder {
 	/**
 	 * 获得由 SQLFunction 组成的属性查询条件左边
 	 * 
-	 * @param conditionAnno
-	 * @return
+	 * @param annoInfo 标注的内容
+	 * @return StringBuilder
 	 */
-	protected StringBuilder getHqlFieldWithSqlFunction(QueryCriterionInfo conditionAnno) {
+	protected StringBuilder getHqlFieldWithSqlFunction(QueryCriterionInfo annoInfo) {
 		StringBuilder filedWithSqlFunction = new StringBuilder();
 		filedWithSqlFunction
-				.append(conditionAnno.getHqlFunction().getName())
+				.append(annoInfo.getHqlFunction().getName())
 				.append("(").append(this.getAlias()).append(".")
-				.append(conditionAnno.getField()).append(")");
+				.append(annoInfo.getField()).append(")");
 		return filedWithSqlFunction;
 	}
 

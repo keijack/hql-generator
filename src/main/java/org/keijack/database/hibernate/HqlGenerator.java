@@ -23,7 +23,7 @@ public final class HqlGenerator {
 	/**
 	 * 
 	 * @param queryParamsObj 获得一个Hql, 这个类必须被标注为 QueryParamsFor
-	 * @return
+	 * @return HqlAndParams
 	 */
 	public static HqlAndParams generateHql(Object queryParamsObj) {
 

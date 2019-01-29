@@ -18,14 +18,14 @@ public @interface OrderBy {
 	/**
 	 * 字段
 	 * 
-	 * @return
+	 * @return 字段 
 	 */
 	String field();
 
 	/**
 	 * 排序
 	 * 
-	 * @return
+	 * @return 排序
 	 */
 	SortOrder orderBy() default SortOrder.ASC;
 }
