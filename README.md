@@ -52,15 +52,6 @@ public class QueryHibernateEntityParams extends ListTestModelCallParent {
 
 	@QueryCondition(field = "modelItems", comparison = ComparisonType.NOTCONTAINS)
 	private HibernateEntityItem item;
-	
-	@QueryFormula(value = "m.parent is not null", appendValue = false)
-	private Boolean notAppendValue;
-
-	@QueryFormula("m.parent.id = ?")
-	private Integer appendValue;
-
-	@QueryFormula("m.parent.id = ? or m.parent.id = ? or m.parent.id = ?")
-	private List<Integer> appendValueList;
 
 	@OrderBy(field = "id", orderBy = SortOrder.DESC)
 	private OrderByLevel orderByIdDesc;
